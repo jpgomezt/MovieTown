@@ -59,8 +59,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -72,9 +70,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-This is a proyect of an online movie rental and sale page using Laravel.
+This is a project of an online movie rental and sale page using Laravel.
 
 ### Built With
 
@@ -102,10 +98,7 @@ You can check out Composer here:
 
 ### Installation
 
-1. Clone the repo
-    ```sh
-    git clone https://github.com/jpgomezt/MovieTown.git
-    ```
+1. You can check out how to set up the project <a href="#contributing">here</a>
 2. cd into the project
     ```sh
     cd MovieTown
@@ -142,32 +135,30 @@ You can check out Composer here:
     php artisan serve
     ```
 
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-See the [open issues](https://github.com/jpgomezt/MovieTown/issues) for a list of proposed features (and known issues).
-
 <!-- CONTRIBUTING -->
 
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+For contributing, the project uses a strategy based on a [forking workflow.](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Here you can check out a full list of steps for you to contribute to this project: [GitHub Forking Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
 
+Before opening any **Pull Request** you must use the projects linters to check and apply the project style guide.
+When you installed the dependencies with `composer install` both [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [TLINT](https://github.com/tighten/tlint) where installed in your `vendor` folder. You can run this linters by running: 
+```sh
+vendor/squizlabs/php_codesniffer/bin/phpcs
+```
+```sh
+vendor/tightenco/tlint/bin/tlint
+```
+or you can install them globally in your machine by running:
+```sh
+composer global require "squizlabs/php_codesniffer=*"
+```
+```sh
+composer global require tightenco/tlint
+```
 <!-- LICENSE -->
 
 ## License
