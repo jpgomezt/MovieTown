@@ -11,7 +11,7 @@ class CreateUserOrderTable extends Migration
     {
         Schema::create('user_order', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            //$table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
         });
     }
 
