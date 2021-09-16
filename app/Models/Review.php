@@ -2,25 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class Review extends Model
 {
-    //attributes id, opinion, stars, date, isVisible, user_id, movie_id, created_at, updated_at
-    protected $fillable = ['opinion','stars','date','isVisible','user_id','movie_id'];
+    //attributes id, opinion, stars, date, is_visible, user_id, movie_id, created_at, updated_at
+    protected $fillable = ['opinion','stars','date','is_visible','user_id','movie_id'];
 
     public static function validate(Request $request)
     {
         $request->validate([
             "opinion" => "required",
             "stars" => "required|numeric|gt:0",
-            "isVisible" => "required|boolean",
-            "date" => "required",
-            "user" => "required",
-            "movie" => "required"
-        ]);
+            "is_visible" => "required|boolean",
+            "date" => "required|date", "user_id", "movie_id"]);
     }
 
     public function getId()
@@ -48,7 +44,7 @@ class Review extends Model
         return $this->attributes['stars'];
     }
 
-    public function setPrice($stars)
+    public function setStars($stars)
     {
         $this->attributes['stars'] = $stars;
     }
@@ -63,19 +59,19 @@ class Review extends Model
         $this->attributes['date'] = $date;
     }
 
-    public function getIsvisible()
+    public function getIsVisible()
     {
-        return $this->attributes['isVisible'];
+        return $this->attributes['is_visible'];
     }
 
-    public function setIsvisible($visible)
+    public function setIsVisible($is_visible)
     {
-        $this->attributes['isVisible'] = $visible;
+        $this->attributes['is_visible'] = $is_visible;
     }
 
     public function getUserId()
     {
-        return strtoupper($this->attributes['user_id']);
+        return $this->attributes['user_id'];
     }
 
     public function setUserId($user_id)
@@ -102,5 +98,4 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

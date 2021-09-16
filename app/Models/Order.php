@@ -2,27 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class Order extends Model
 {
-
-    //attributes id, address, date, paymentType, shippingDate, shippingCost, total, is_Shipped, user_id, created_at, updated_at
-    protected $fillable = ['address','date','paymentType','shippingDate','shippingCost','total', 'is_Shipped', 'user_id' ];
+    /*
+        attributes id, address, date, payment_type, shipping_date,
+        shipping_cost, total, is_shipped, user_id, created_at, updated_at
+    */
+    protected $fillable = ['address','date','payment_type','shipping_date',
+    'shipping_cost','total', 'is_shipped', 'user_id' ];
 
     public static function validate(Request $request)
     {
         $request->validate([
-            "adress" => "required",
-            "date" => "required",
-            "paymetType" => "required|numeric",
-            "shippingDate" => "required",
-            "shippingCost" => "required",
-            "total" => "required|numeric|gt:0",
-            "is_Shipped" => "required|boolean", "user_id"
-        ]);
+            "address" => "required",
+            "date" => "required|date",
+            "payment_type" => "required",
+            "shipping_date" => "required",
+            "shipping_cost" => "required",
+            "total" => "required|numeric|min:0|not_in:0",
+            "is_shipped" => "required|boolean",]);
     }
 
     public function getId()
@@ -35,14 +36,14 @@ class Order extends Model
         $this->attributes['id'] = $id;
     }
 
-    public function getAdress()
+    public function getAddress()
     {
-        return $this->attributes['adress'];
+        return $this->attributes['address'];
     }
 
-    public function setAdress($adress)
+    public function setAddress($address)
     {
-        $this->attributes['adress'] = $adress;
+        $this->attributes['address'] = $address;
     }
 
     public function getDate()
@@ -57,32 +58,32 @@ class Order extends Model
 
     public function getPaymentType()
     {
-        return $this->attributes['paymentType'];
+        return $this->attributes['payment_type'];
     }
 
-    public function setPaymentType($paymentType)
+    public function setPaymentType($payment_type)
     {
-        $this->attributes['paymentType'] = $paymentType;
+        $this->attributes['payment_type'] = $payment_type;
     }
 
     public function getShippingDate()
     {
-        return $this->attributes['shippingDate'];
+        return $this->attributes['shipping_date'];
     }
 
-    public function setShippingDate($shippingDate)
+    public function setShippingDate($shipping_date)
     {
-        $this->attributes['shippingDate'] = $shippingDate;
+        $this->attributes['shipping_date'] = $shipping_date;
     }
 
     public function getShippingCost()
     {
-        return $this->attributes['shippingCost'];
+        return $this->attributes['shipping_cost'];
     }
 
-    public function setShippingCost($shippingCost)
+    public function setShippingCost($shipping_cost)
     {
-        $this->attributes['shippingCost'] = $shippingCost;
+        $this->attributes['shipping_cost'] = $shipping_cost;
     }
 
     public function getTotal()
@@ -97,12 +98,12 @@ class Order extends Model
 
     public function getIsShipped()
     {
-        return $this->attributes['isShipped'];
+        return $this->attributes['is_shipped'];
     }
 
-    public function setIsShipped($isShipped)
+    public function setIsShipped($is_shipped)
     {
-        $this->attributes['isShipped'] = $isShipped;
+        $this->attributes['is_shipped'] = $is_shipped;
     }
 
     public function getUserId()
@@ -115,8 +116,13 @@ class Order extends Model
         $this->attributes['user_id'] = $user_id;
     }
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function item()
+    {
+        return $this->hasMany(Item::class);
     }
 }
