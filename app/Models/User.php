@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -11,12 +12,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    // atributes id, name, email, password, address, username, created_at, remember_token, updated_at
+    // attributes id, name, email, password, address, username, isStaff, hasRentedMovies,created_at, remember_token, updated_at
     protected $fillable = [
         'name',
         'email',
@@ -25,21 +21,13 @@ class User extends Authenticatable
         'username',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
+        'isStaff',
+        'hasRentedMovies',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -75,12 +63,12 @@ class User extends Authenticatable
         $this->attributes['name'] = $name;
     }
 
-    public function getUserName()
+    public function getUsername()
     {
         return $this->attributes['username'];
     }
 
-    public function setUserName($username)
+    public function setUsername($username)
     {
         $this->attributes['username'] = $username;
     }

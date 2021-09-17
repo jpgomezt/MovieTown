@@ -49,9 +49,19 @@ class Watchlist extends Model
         $this->attributes['description'] = $description;
     }
 
+    public function getUserId()
+    {
+        return $this->attributes['user_id'];
+    }
+
+    public function setUserId()
+    {
+        return $this->attributes['user_id'];
+    }
+
     public function movies()
     {
-        return $this->hasMany(Movie::class);
+        return $this->belongsToMany(Movie::class);
     }
 
     public function user()
