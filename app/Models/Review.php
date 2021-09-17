@@ -16,7 +16,7 @@ class Review extends Model
             "opinion" => "required",
             "stars" => "required|numeric|gt:0",
             "is_visible" => "required|boolean",
-            "date" => "required|date", "user_id", "movie_id"]);
+            "date" => "required|date",]);
     }
 
     public function getId()
