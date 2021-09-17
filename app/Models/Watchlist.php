@@ -54,7 +54,7 @@ class Watchlist extends Model
         return $this->attributes['user_id'];
     }
 
-    public function setUserId()
+    public function setUserId($user_id)
     {
         return $this->attributes['user_id'];
     }

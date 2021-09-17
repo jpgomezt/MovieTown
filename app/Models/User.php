@@ -123,23 +123,23 @@ class User extends Authenticatable
         $this->attributes['has_rented_movies'] = $has_rented_movies;
     }
 
-    public function viewed()
+    public function movies()
     {
         return $this->belongsToMany(Movie::class);
     }
 
     public function watchlists()
     {
-        return $this->belongsToMany(Watchlist::class);
+        return $this->hasMany(Watchlist::class);
     }
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     public function reviews()
     {
-        return $this->belongsToMany(Review::class);
+        return $this->hasMany(Review::class);
     }
 }
