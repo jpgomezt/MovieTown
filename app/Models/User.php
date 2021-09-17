@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
-    // attributes id, name, email, password, address, username, isStaff, hasRentedMovies,created_at, remember_token, updated_at
+    // attributes id, name, email, password, address, username, is_staff, has_rented_movies,created_at, remember_token, updated_at
     protected $fillable = [
         'name',
         'email',
@@ -24,8 +24,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'isStaff',
-        'hasRentedMovies',
+        'is_staff',
+        'has_rented_movies',
     ];
 
     protected $casts = [
@@ -95,12 +95,12 @@ class User extends Authenticatable
 
     public function getIsStaff()
     {
-        return $this->attributes['isStaff'];
+        return $this->attributes['is_staff'];
     }
 
-    public function setIsStaff($isStaff)
+    public function setIsStaff($is_staff)
     {
-        $this->attributes['isStaff'] = $isStaff;
+        $this->attributes['is_staff'] = $is_staff;
     }
 
     public function getPassword()
@@ -115,12 +115,12 @@ class User extends Authenticatable
 
     public function getHasRentedMovies()
     {
-        return $this->attributes['hasRentedMovies'];
+        return $this->attributes['has_rented_movies'];
     }
 
-    public function setHasRentesMovies($hasRentedMovies)
+    public function setHasRentesMovies($has_rented_movies)
     {
-        $this->attributes['hasRentedMovies'] = $hasRentedMovies;
+        $this->attributes['has_rented_movies'] = $has_rented_movies;
     }
 
     public function viewed()
