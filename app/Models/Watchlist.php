@@ -14,8 +14,8 @@ class Watchlist extends Model
     public static function validate(Request $request)
     {
         $request->validate([
-            "name" => "required|boolean",
-            "description" => "required|date",
+            "name" => "required",
+            "description" => "required",
         ]);
     }
 
