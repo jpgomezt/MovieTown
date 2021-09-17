@@ -7,10 +7,8 @@ use Illuminate\Http\Request;
 
 class Order extends Model
 {
-    /*
-        attributes id, address, date, payment_type, shipping_date,
-        shipping_cost, total, is_shipped, user_id, created_at, updated_at
-    */
+    
+    //attributes id, address, date, payment_type, shipping_date,shipping_cost, total, is_shipped, user_id, created_at, updated_at
     protected $fillable = ['address','date','payment_type','shipping_date',
     'shipping_cost','total', 'is_shipped', 'user_id' ];
 
@@ -121,7 +119,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function item()
+    public function items()
     {
         return $this->hasMany(Item::class);
     }
