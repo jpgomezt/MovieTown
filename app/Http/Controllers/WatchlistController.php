@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Watchlist;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class WatchlistController extends Controller
@@ -54,5 +55,21 @@ class WatchlistController extends Controller
         $watchlist->delete();
         dd("Watchlist ".$id.": Has been deleted");
         //return redirect()->route('watchlist.list');
+    }
+
+    public function addMovie()
+    {
+        $movie = Movie::findOrFail(1);
+        $watchlist = Watchlist::find(1);
+        $watchlist->movies()->attach($movie);
+        dd('Movie added succesfully to watchlist', $movie, $watchlist, $watchlist->movies);
+    }
+
+    public function removeMovie()
+    {
+        $movie = Movie::findOrFail(1);
+        $watchlist = Watchlist::find(1);
+        $watchlist->movies()->detach($movie);
+        dd('Movie removed succesfully from watchlist', $movie, $watchlist);
     }
 }
