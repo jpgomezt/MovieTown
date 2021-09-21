@@ -57,7 +57,7 @@ class WatchlistController extends Controller
         //return redirect()->route('watchlist.list');
     }
 
-    public function addMovie()
+    public function addMovie(Request $request)
     {
         $movie = Movie::findOrFail(1);
         $watchlist = Watchlist::find(1);
@@ -65,7 +65,7 @@ class WatchlistController extends Controller
         dd('Movie added succesfully to watchlist', $movie, $watchlist, $watchlist->movies);
     }
 
-    public function removeMovie()
+    public function removeMovie(Request $request)
     {
         $movie = Movie::findOrFail(1);
         $watchlist = Watchlist::find(1);

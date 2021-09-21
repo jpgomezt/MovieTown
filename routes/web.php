@@ -23,6 +23,8 @@ Route::get('user/list', [App\Http\Controllers\UserController::class, 'list'])->n
 Route::get('user/show/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('user.show');
 Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
 
+Route::get('user/addViewedMovie', [App\Http\Controllers\UserController::class, 'addViewedMovie'])->name('user.addViewedMovie');
+
 Route::get('watchlist/list', [App\Http\Controllers\WatchlistController::class, 'list'])->name('watchlist.list');
 Route::get('watchlist/show/{id}', [App\Http\Controllers\WatchlistController::class, 'show'])->name('watchlist.show');
 Route::get('watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::class, 'delete'])->name('watchlist.delete');

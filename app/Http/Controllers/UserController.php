@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -54,5 +55,12 @@ class UserController extends Controller
         $user->delete();
         dd("User ".$id.": Has been deleted");
         //return redirect()->route('user.list');
+    }
+
+    public function addViewedMovie(Request $request){
+        $user = User::find(1);
+        $movie = Movie::find(1);
+        $user->movies()->attach($movie);
+        dd('Movie added succesfully to viewed', $movie, $user);
     }
 }
