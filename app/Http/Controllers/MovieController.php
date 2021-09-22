@@ -10,7 +10,7 @@ class MovieController extends Controller
 
     public function create()
     {
-        $data = []; //to be sent to the view
+        $data = [];
         $data["page"] = "Create Movie";
 
         dd($data);
@@ -37,15 +37,8 @@ class MovieController extends Controller
 
     public function show($id)
     {
-        $data = []; //to be sent to the view
+        $data = [];
         $movie = Movie::findOrFail($id);
-
-        $data["title"] = $movie->getTitle();
-        $data["plot"] = $movie->getPlot();
-        $data["critics_score"] = $movie->getCriticsScore();
-        $data["price"] = $movie->getPrice();
-        $data["rent_quantity"] = $movie->getRentQuantity();
-        $data["sell_quantity"] = $movie->getSellQuantity();
         $data["movie"] = $movie;
 
         dd($data);
@@ -54,11 +47,26 @@ class MovieController extends Controller
 
     public function list()
     {
-        $data = []; //to be sent to the view
+        $data = [];
         $data["page"] = "List of movies";
-        $data["movies"] = Movie::all()->sortByDesc("id");
+        $data["movies"] = Movie::all();
 
         dd($data);
         //return view('movie.list')->with("data", $data);
+    }
+
+    public function filter(Request $request)
+    {
+        $rentQuantityOperator = '=';
+        if ($request->input('isForRent') == 'true') {
+            $rentQuantityOperator = '>';
+        }
+        $movies = Movie::where('title', 'like', '%' . $request->input('title') . '%')
+                        ->where('critics_score', '>=', $request->input('score'))
+                        ->where('price', '<=', $request->input('price'))
+                        ->where('rent_quantity', $rentQuantityOperator, '0')
+                        ->get();
+
+        dd($movies);
     }
 }
