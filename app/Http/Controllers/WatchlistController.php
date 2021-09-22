@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Watchlist;
 use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WatchlistController extends Controller
 {
@@ -21,13 +23,11 @@ class WatchlistController extends Controller
         //return view('watchlist.show')->with("data", $data);
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $data = []; //to be sent to the view
         $data["title"] = "Create Watchlist";
-        $data["watchlists"] = Watchlist::all();
         dd($data["watchlists"]);
-
         //return view('watchlist.create')->with("data",$data);
     }
     
@@ -44,7 +44,10 @@ class WatchlistController extends Controller
     public function save(Request $request)
     {
         Watchlist::validate($request);
-        Watchlist::create($request->only(["name","description"]));
+        $watchlist = new Watchlist($request->only(['name', 'description']));
+        $user = User::find(Auth::id());
+        $user->watchlists()->save($watchlist);
+        dd('Create watchlist successfully!!');
 
         //return back()->with('success','Elemento creado satisfactoriamente');
     }
@@ -57,19 +60,29 @@ class WatchlistController extends Controller
         //return redirect()->route('watchlist.list');
     }
 
-    public function addMovie(Request $request)
+    public function addMovie(Request $request, $id)
     {
-        $movie = Movie::findOrFail(1);
-        $watchlist = Watchlist::find(1);
+        // query and input methods are both valid
+        //$watchlist = $user->watchlists()
+        //                  ->where('name', 'rock watch')
+        //                  ->first();
+        $user = User::find(Auth::id());
+        $watchlist = $user->watchlists()
+                          ->where('name', $request->input('name'))
+                          ->first();
+        $movie = Movie::findOrFail($id);
         $watchlist->movies()->attach($movie);
-        dd('Movie added succesfully to watchlist', $movie, $watchlist, $watchlist->movies);
+        dd("Movie added succesfully to watchlist (".$watchlist['name'].") - Current movies in watchlist", $watchlist->movies);
     }
 
-    public function removeMovie(Request $request)
+    public function removeMovie(Request $request, $id)
     {
-        $movie = Movie::findOrFail(1);
-        $watchlist = Watchlist::find(1);
+        $user = User::find(Auth::id());
+        $watchlist = $user->watchlists()
+                          ->where('name', $request->input('name'))
+                          ->first();
+        $movie = Movie::findOrFail($id);
         $watchlist->movies()->detach($movie);
-        dd('Movie removed succesfully from watchlist', $movie, $watchlist);
+        dd('Movie removed succesfully from watchlist ('.$watchlist['name'].") - Current movies in watchlist", $watchlist->movies);
     }
 }
