@@ -12,8 +12,8 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique();
             $table->text('address');
-            $table->boolean('isStaff')->default(0);
-            $table->boolean('hasRentedMovies')->default(0);
+            $table->boolean('is_staff')->default(0);
+            $table->boolean('has_rented_movies')->default(0);
         });
     }
 
@@ -22,8 +22,8 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['username']);
             $table->dropColumn(['address']);
-            $table->dropColumn(['isStaff']);
-            $table->dropColumn(['hasRentedMovies']);
+            $table->dropColumn(['is_staff']);
+            $table->dropColumn(['has_rented_movies']);
         });
     }
 }
