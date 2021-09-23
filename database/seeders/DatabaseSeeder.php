@@ -3,7 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Movie;
+use App\Models\User;
+use App\Models\Review;
+use App\Models\Order;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -66,6 +71,112 @@ class DatabaseSeeder extends Seeder
                 'price' => '13000',
                 'rent_quantity' => '8',
                 'sell_quantity' => '16',
+            ]
+        );
+
+        User::create(
+            [
+                'name' => 'Sebastian Urrego',
+                'username' => 'urregozw',
+                'address' => 'Calle 43 sur #33 - 50',
+                'email' => 'urregozw@gmail.com',
+                'password' => Hash::make('12345'),
+            ]
+        );
+
+        User::create(
+            [
+                'name' => 'Juan Pablo Gomez',
+                'username' => 'jpgomez',
+                'address' => 'Calle 92 sur #70 - 100',
+                'email' => 'jpgomez@gmail.com',
+                'password' => Hash::make('12345'),
+                'is_staff' => '1',
+            ]
+        );
+
+        User::create(
+            [
+                'name' => 'Santiago Alzate',
+                'username' => 'salzatec1',
+                'address' => 'Avenida 57 #33 - 50',
+                'email' => 'salzatec1@gmail.com',
+                'password' => Hash::make('12345'),
+                'has_rented_movies' => '1',
+            ]
+        );
+
+        Review::create(
+            [
+                'opinion' => 'It was a good movie, but i did not understand the end credits',
+                'stars' => 4,
+                'is_visible' => true,
+                'date' => '2021-09-22',
+                'user_id' => 1,
+                'movie_id' => 1,
+            ]
+        );
+
+
+        Review::create(
+            [
+                'opinion' => 'I didn´t like the movie it was very scary and I dislike the protagonist',
+                'stars' => 2,
+                'is_visible' => false,
+                'date' => '2021-09-22',
+                'user_id' => 2,
+                'movie_id' => 2,
+            ]
+        );
+
+
+        Review::create(
+            [
+                'opinion' => 'The movie was marvelous! I will say it´s the best in the world',
+                'stars' => 5,
+                'is_visible' => true,
+                'date' => '2021-09-22',
+                'user_id' => 3,
+                'movie_id' => 3,
+            ]
+        );
+
+        Order::create(
+            [
+                'address' => 'Calle 1 #2 - 53210',
+                'date' => '2021-09-22',
+                'payment_type' => '2345678876543',
+                'shipping_date' => '2021-09-22',
+                'shipping_cost' => 2456,
+                'total' => 10000,
+                'is_shipped' => true,
+                'user_id' => 1,
+            ]
+        );
+
+        Order::create(
+            [
+                'address' => 'Calle 21 sur #123 - 3',
+                'date' => '2021-09-22',
+                'payment_type' => '2345678876543',
+                'shipping_date' => '2021-09-22',
+                'shipping_cost' => 2456,
+                'total' => 10000,
+                'is_shipped' => true,
+                'user_id' => 2,
+            ]
+        );
+
+        Order::create(
+            [
+                'address' => 'Avenida 2 #33 - 2',
+                'date' => '2021-09-22',
+                'payment_type' => '23443426543',
+                'shipping_date' => '2021-09-24',
+                'shipping_cost' => 126,
+                'total' => 43320,
+                'is_shipped' => false,
+                'user_id' => 3,
             ]
         );
     }
