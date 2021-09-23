@@ -1,22 +1,39 @@
 @extends('layouts.app')
 
 @section('title')
-{{ $data["title"] }}
+    {{ $data['title'] }}
 @endsection
 
 @section('content')
-<h1>{{ $data["title"] }}</h1>
-<form action="{{ route('watchlist.save') }}" method="post">
-    @csrf
-    <div class="form-group">
-      <label for="watchlist-name">Name</label>
-      <input type="text" class="form-control" id="watchlist-name" aria-describedby="emailHelp" name="name">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ $data['title'] }}</div>
+                    <div class="card-body">
+                        @if ($errors->any())
+                            <ul id="errors">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                        <form method="POST" action="{{ route('watchlist.save') }}" method="post">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="text" placeholder="Enter name" name="name"
+                                    value="{{ old('name') }}" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="text" placeholder="Enter description" name="description"
+                                    value="{{ old('description') }}" />
+                            </div>
+                            <input class="btn btn-success" type="submit" value="Create">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" name="description">
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-  </form>
 
 @endsection

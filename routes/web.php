@@ -34,7 +34,7 @@ Route::post('watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::
 Route::get('watchlist/addMovie', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
 Route::get('watchlist/addMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
 Route::get('watchlist/removeMovie', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
-Route::get('watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
+Route::post('watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
 
 Route::get('movie/create', [App\Http\Controllers\MovieController::class, 'create'])->name("movie.create");
 Route::post('movie/save', [App\Http\Controllers\MovieController::class, 'save'])->name("movie.save");
