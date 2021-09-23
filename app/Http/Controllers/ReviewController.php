@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,12 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function create()
+    public function create($id)
     {
         $data = [];
         $data["title"] = "Create review";
-
-        dd($data);
+        $movie = Movie::find($id);
+        $data['movie'] = $movie;
+        return view('review.create', ["data" => $data]);
     }
 
     public function show($id)
@@ -32,9 +34,10 @@ class ReviewController extends Controller
     {
         Review::validate($request);
         $user = User::find(Auth::id());
-        $review = new Review($request->only(["opinion","stars","is_visible","date","movie_id"]));
+        $review = new Review($request->only(["opinion","stars", "movie_id"]));
+        $review->setDate(date("Y/m/d"));
         $user->reviews()->save($review);
-        return back()->with('success', 'Elemento Creado Satisfactoriamente');
+        return redirect()->route('movie.show', ['id' => $request->input('movie_id')]);
     }
 
     public function list()
@@ -45,11 +48,10 @@ class ReviewController extends Controller
 
     public function delete($id)
     {
-        $review = Review::find($id);
-
+        $review = Review::findOrFail($id);
+        $movie_id = $review->getMovieId();
         $review->delete();
-
-        dd($review);
+        return redirect()->route('movie.show', ['id' => $movie_id]);
     }
 
     public function truncateReview(Request $request)
