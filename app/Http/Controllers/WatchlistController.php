@@ -19,7 +19,7 @@ class WatchlistController extends Controller
         $data["title"] = $watchlist->getName();
         $data["watchlist"] = $watchlist;
         //dd($data["watchlist"]);
-        return view('watchlist.show')->with("data", $data);
+        return view('watchlist.show', ['data'=> $data]);
     }
 
     public function create(Request $request)
@@ -27,7 +27,7 @@ class WatchlistController extends Controller
         $data = [];
         $data["title"] = "Create Watchlist";
         //dd($data["watchlists"]);
-        return view('watchlist.create')->with("data", $data);
+        return view('watchlist.create', ['data'=> $data]);
     }
     
     public function list()
@@ -39,7 +39,7 @@ class WatchlistController extends Controller
         $user = User::findOrFail(Auth::id());
         $data["watchlists"] = $user->watchlists;
         //dd($data["watchlists"]);
-        return view('watchlist.list')->with("data", $data);
+        return view('watchlist.list', ['data'=> $data]);
     }
 
     public function save(Request $request)
@@ -68,7 +68,7 @@ class WatchlistController extends Controller
                           ->first();
         $movie = Movie::findOrFail($id);
         $watchlist->movies()->attach($movie);
-        dd("Movie added succesfully to watchlist (".$watchlist['name'].") - Current movies in watchlist", $watchlist->movies);
+        dd("Movie added succesfully to watchlist (" . $watchlist['name'] . ") - Current movies in watchlist", $watchlist->movies);
     }
 
     public function removeMovie(Request $request, $id)

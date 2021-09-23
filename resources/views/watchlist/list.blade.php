@@ -6,7 +6,7 @@
 
 @section('content')
 <h1>Your Watchlists</h1>
-@if( $data["watchlists"]->count() === 0 )
+@if ( $data["watchlists"]->count() === 0 )
 You currently do not have any watchlist - Go on and create one !!!
 @else
 <ul class="list-group">

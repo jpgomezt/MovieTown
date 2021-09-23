@@ -6,9 +6,9 @@
 
 @section('content')
 <h1>{{ $data["watchlist"]->getName() }}</h1>
-<p>{{ $data["watchlist"]->getDescription()}}</p>
+<p>{{ $data["watchlist"]->getDescription() }}</p>
 
-@if( $data["watchlist"]->movies->count() === 0 )
+@if ( $data["watchlist"]->movies->count() === 0 )
 Your watchlist do not contain any movie - Go on and create an epic one !!!
 @else
 <ul class="list-group">
@@ -25,6 +25,6 @@ Your watchlist do not contain any movie - Go on and create an epic one !!!
 </ul>
 @endif
 <br />
-<a class="btn btn-primary" href="{{ route('movie.list')}}" role="button">Add movies</a>
+<a class="btn btn-primary" href="{{ route('movie.list') }}" role="button">Add movies</a>
 
 @endsection
