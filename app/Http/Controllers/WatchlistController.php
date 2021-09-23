@@ -18,16 +18,16 @@ class WatchlistController extends Controller
 
         $data["title"] = $watchlist->getName();
         $data["watchlist"] = $watchlist;
-        dd($data["watchlist"]->movies);
-        //return view('watchlist.show')->with("data", $data);
+        //dd($data["watchlist"]);
+        return view('watchlist.show')->with("data", $data);
     }
 
     public function create(Request $request)
     {
         $data = [];
         $data["title"] = "Create Watchlist";
-        dd($data["watchlists"]);
-        //return view('watchlist.create')->with("data",$data);
+        //dd($data["watchlists"]);
+        return view('watchlist.create')->with("data", $data);
     }
     
     public function list()
@@ -35,9 +35,11 @@ class WatchlistController extends Controller
         $data = [];
         $data["title"] = "List Watchlists";
         $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
-        dd($data["watchlists"]);
 
-        //return view('watchlist.list')->with("data",$data);
+        $user = User::findOrFail(Auth::id());
+        $data["watchlists"] = $user->watchlists;
+        //dd($data["watchlists"]);
+        return view('watchlist.list')->with("data", $data);
     }
 
     public function save(Request $request)

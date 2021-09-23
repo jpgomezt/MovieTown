@@ -26,10 +26,11 @@ Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'del
 Route::get('user/save', [App\Http\Controllers\UserController::class, 'save'])->name('user.save');
 Route::get('user/addViewedMovie/{id}', [App\Http\Controllers\UserController::class, 'addViewedMovie'])->name('user.addViewedMovie');
 
+Route::get('watchlist/create', [App\Http\Controllers\WatchlistController::class, 'create'])->name('watchlist.create');
 Route::get('watchlist/list', [App\Http\Controllers\WatchlistController::class, 'list'])->name('watchlist.list');
 Route::get('watchlist/show/{id}', [App\Http\Controllers\WatchlistController::class, 'show'])->name('watchlist.show');
 Route::get('watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::class, 'delete'])->name('watchlist.delete');
-Route::get('watchlist/save', [App\Http\Controllers\WatchlistController::class, 'save'])->name('watchlist.save');
+Route::post('watchlist/save', [App\Http\Controllers\WatchlistController::class, 'save'])->name('watchlist.save');
 Route::get('watchlist/addMovie', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
 Route::get('watchlist/addMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
 Route::get('watchlist/removeMovie', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
