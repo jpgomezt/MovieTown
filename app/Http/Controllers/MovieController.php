@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ImageStorage;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -11,19 +12,21 @@ class MovieController extends Controller
     public function create()
     {
         $data = [];
-        $data["page"] = "Create Movie";
+        $data["title"] = "Create Movie";
 
-        dd($data);
-        //return view('movie.create')->with("data", $data);
+        return view('movie.create', ['data' => $data]);
     }
 
     public function save(Request $request)
     {
+        #VALIDATE IMAGE
         Movie::validate($request);
-        Movie::create($request->only(["title", "plot", "critics_score", "price", "rent_quantity", "sell_quantity"]));
+        $movie = Movie::create($request->only(["title", "plot", "critics_score", "price", "rent_quantity", "sell_quantity"]));
+        $storeInterface = app(ImageStorage::class);
+        $storeInterface->store($movie->getId(), $request);
 
-        dd($request);
-        //return redirect()->route('home.index')->with('success', 'Movie created successfully!');
+
+        return redirect()->route('movie.show', ['id' => $movie->getId()]);
     }
 
     public function delete($id)
@@ -38,11 +41,10 @@ class MovieController extends Controller
     public function show($id)
     {
         $data = [];
-        $movie = Movie::findOrFail($id);
-        $data["movie"] = $movie;
+        $data["movie"] = Movie::with("reviews")->findOrFail($id);
 
-        dd($data);
-        //return view('movie.show')->with("data", $data);
+        //dd($data["review"]->user->getName());
+        return view('movie.show', ['data' => $data]);
     }
 
     public function list()
@@ -62,10 +64,10 @@ class MovieController extends Controller
             $rentQuantityOperator = '>';
         }
         $movies = Movie::where('title', 'like', '%' . $request->input('title') . '%')
-                        ->where('critics_score', '>=', $request->input('score'))
-                        ->where('price', '<=', $request->input('price'))
-                        ->where('rent_quantity', $rentQuantityOperator, '0')
-                        ->get();
+            ->where('critics_score', '>=', $request->input('score'))
+            ->where('price', '<=', $request->input('price'))
+            ->where('rent_quantity', $rentQuantityOperator, '0')
+            ->get();
 
         dd($movies);
     }
