@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Item;
+
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -43,7 +43,7 @@ class OrderController extends Controller
         dd($data);
     }
 
-    public function erase($id)
+    public function delete($id)
     {
         
         $order = Order::find($id);

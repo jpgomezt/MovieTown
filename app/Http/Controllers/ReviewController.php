@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\Review;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
@@ -25,7 +26,7 @@ class ReviewController extends Controller
         $data["title"] = 'Review ' . $id;
         $data["review"] = $review;
         
-        return view('review.show')->with("data", $data);
+        return view('review.show', ["data" => $data]);
     }
 
     public function save(Request $request)
