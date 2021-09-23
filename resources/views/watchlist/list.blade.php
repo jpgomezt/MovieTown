@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-4 mb-4">
+    <div class="container mt-4 mb-4" >
         <div class="card">
             <div class="card-header h1 text-center">Your Watchlists</div>
             <div class="card-body">
@@ -14,7 +14,7 @@
                 @else
 
                     @foreach ($data['watchlists'] as $watchlist)
-                        <div class="card">
+                        <div class="card mb-2">
                             <div class="card-body">
                                 <h5 class="card-title"><a
                                         href="{{ route('watchlist.show', ['id' => $watchlist->getId()]) }}">{{ $watchlist->getName() }}</a>
@@ -23,7 +23,7 @@
                                 <form action="{{ route('watchlist.delete', ['id' => $watchlist->getId()]) }} "
                                     method="post">
                                     @csrf
-                                    <input type="submit" value="Delete">
+                                    <input class="btn btn-danger" type="submit" value="Delete">
                                 </form>
                                 <!-- <a href="#" class="card-link">Delete</a> -->
                             </div>
