@@ -48,16 +48,16 @@ class WatchlistController extends Controller
         $watchlist = new Watchlist($request->only(['name', 'description']));
         $user = User::find(Auth::id());
         $user->watchlists()->save($watchlist);
-        dd('Create watchlist successfully!!');
-        //return back()->with('success','Elemento creado satisfactoriamente');
+        //dd('Create watchlist successfully!!');
+        return redirect()->route('watchlist.list');
     }
 
     public function delete($id)
     {
         $watchlist = Watchlist::find($id);
         $watchlist->delete();
-        dd("Watchlist ".$id.": Has been deleted");
-        //return redirect()->route('watchlist.list');
+        //dd("Watchlist ".$id.": Has been deleted");
+        return back();
     }
 
     public function addMovie(Request $request, $id)
@@ -75,10 +75,10 @@ class WatchlistController extends Controller
     {
         $user = User::find(Auth::id());
         $watchlist = $user->watchlists()
-                          ->where('name', $request->input('name'))
+                          ->where('id', $request->input('watchlist_id'))
                           ->first();
         $movie = Movie::findOrFail($id);
         $watchlist->movies()->detach($movie);
-        dd('Movie removed succesfully from watchlist ('.$watchlist['name'].") - Current movies in watchlist", $watchlist->movies);
+        return back();
     }
 }
