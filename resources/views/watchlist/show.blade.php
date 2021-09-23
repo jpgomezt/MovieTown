@@ -41,7 +41,7 @@
                                                 
                                                 <input type="hidden" name="watchlist_id"
                                                     value="{{ $data['watchlist']->getId() }}">
-                                                <input class="btn btn-danger" type="submit" value="Delete">
+                                                <input class="btn btn-danger" type="submit" value="Remove">
                                             </form>
                                         </div>
                                         <!-- <a href="#" class="card-link">Delete</a> -->
