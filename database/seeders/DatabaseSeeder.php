@@ -3,12 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Movie;
-use App\Models\User;
-use App\Models\Review;
 use App\Models\Order;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-
 
 class DatabaseSeeder extends Seeder
 {
