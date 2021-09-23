@@ -41,3 +41,17 @@ Route::get('movie/list', [App\Http\Controllers\MovieController::class, 'list'])-
 Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name("movie.show");
 Route::post('movie/delete{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::get('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
+
+Route::post('review/create', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
+Route::post('review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("review.save");
+Route::get('review/list', [App\Http\Controllers\ReviewController::class, 'list'])->name("review.list");
+Route::get('review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("review.show");
+Route::post('review/delete/{id}', [App\Http\Controllers\ReviewController::class, 'delete'])->name("review.delete");
+Route::get('review/truncateReview', [App\Http\Controllers\ReviewController::class, 'truncateReview'])->name("review.truncateReview");
+
+
+Route::get('order/create', [App\Http\Controllers\OrderController::class, 'create'])->name("order.create");
+Route::post('order/save', [App\Http\Controllers\OrderController::class, 'save'])->name("order.save");
+Route::get('order/list', [App\Http\Controllers\OrderController::class, 'list'])->name("order.list");
+Route::get('order/show/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name("order.show");
+Route::post('order/delete/{id}', [App\Http\Controllers\OrderController::class, 'delete'])->name("order.delete");
