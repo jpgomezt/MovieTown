@@ -18,7 +18,7 @@
             </ul>
             @endif
 
-            <form method="POST" action="{{ route('review.save') }}">
+            <form method="POST" action="{{ route('order.save') }}">
                 @csrf
                 <style>
                     input{

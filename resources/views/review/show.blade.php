@@ -20,11 +20,20 @@
                             <i class="fas fa-star" style="color: yellow"></i>
                         @endfor
                         <br><br>
-
-                        <form method="POST" action="{{ route('review.delete', ['id'=>$data['review']->getId()]) }}">
-                            @csrf 
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </form>
+                        <div class="row">
+                            <div class="col-sm-2">
+                            <form method="POST" action="{{ route('review.delete', ['id'=>$data['review']->getId()]) }}">
+                                @csrf 
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                            </div>
+                            <div class="col-sm-2">
+                            <form method="GET" action="{{ route('review.update', ['id'=>$data['review']->getId()]) }}">
+                                @csrf 
+                                <input type="submit" class="btn btn-info" value="Update">
+                            </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

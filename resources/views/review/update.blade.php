@@ -8,7 +8,7 @@
         <div class="col-md-8">
         <div class="card">
             
-            <div class="card-header" style="text-align: center; font-size: 25px">{{ $data["title"] }}: <b>{{$data['movie']->getTitle()}}</b></div>
+            <div class="card-header" style="text-align: center; font-size: 25px">{{ $data["title"] }}: <b>{{$data['review']->movie->getTitle()}}</b></div>
             <div class="card-body">
             @if ( $errors->any() )
             <ul id="errors">
@@ -18,7 +18,7 @@
             </ul>
             @endif
 
-            <form method="POST" action="{{ route('review.save') }}">
+            <form method="POST" action="{{ route('review.updateProcess', ['id' => $data['review']->getId()]) }}">
                 @csrf
                 <style>
                     input{
@@ -28,9 +28,9 @@
                     }
                 </style>
 
-                <input type="text" placeholder="Comment about the movie" name="opinion" style="height: 60px; width: 100%;" value="{{ old('opinion') }}" /><br>
-                <input type="number" step="0.1" placeholder="Number of stars" name="stars" min="1" max="5" value="{{ old('stars') }}" /><br>
-                <input type="hidden"  name="movie_id" value="{{ $data['movie']->getId() }}" /><br>
+                <input type="text" placeholder="Comment about the movie" name="opinion" style="height: 60px; width: 100%;" value="{{ $data['review']->getOpinion() }}" /><br>
+                <input type="number" step="0.1" placeholder="Number of stars" name="stars" min="1" max="5" value="{{ $data['review']->getStars() }}" /><br>
+                <input type="hidden"  name="movie_id" value="{{ $data['review']->movie->getId() }}" /><br>
                 <input type="submit" style="text-align: center" value="Publish Review" />
             </form>
 
