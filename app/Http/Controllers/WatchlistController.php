@@ -13,14 +13,12 @@ class WatchlistController extends Controller
     public function show($id)
     {
         if (Auth::check()) {
-            $user = Auth::user();
             $data = [];
-            $watchlist = $user->watchlists()
-                ->where('id', $id)
-                ->first();
+            $watchlist = Watchlist::with('movies')
+                            ->where('user_id', Auth::id())
+                            ->find($id);
 
             if ($watchlist !== null) {
-                $watchlist = Watchlist::findOrFail($id);
                 $data["title"] = $watchlist->getName();
                 $data["watchlist"] = $watchlist;
                 return view('watchlist.show', ['data' => $data]);
