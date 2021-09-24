@@ -31,7 +31,7 @@
                 <input type="text" placeholder="Comment about the movie" name="opinion" style="height: 60px; width: 100%;" value="{{ old('opinion') }}" /><br>
                 <input type="number" step="0.1" placeholder="Number of stars" name="stars" min="1" max="5" value="{{ old('stars') }}" /><br>
                 <input type="hidden"  name="movie_id" value="{{ $data['movie']->getId() }}" /><br>
-                <input type="submit" style="text-align: center" value="Publish Review" />
+                <input type="submit" style="text-align: center" value="{{ $data["title"] }}" />
             </form>
 
             </div>

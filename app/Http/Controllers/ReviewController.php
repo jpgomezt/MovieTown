@@ -87,6 +87,9 @@ class ReviewController extends Controller
         }
     }
 
+    /*
+        $id -> Review ID
+    */
     public function update($id)
     {
         if (Auth::check()) {

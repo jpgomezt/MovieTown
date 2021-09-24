@@ -8,7 +8,7 @@
         <div class="col-md-8">
         <div class="card">
             
-            <div class="card-header" style="text-align: center; font-size: 25px">{{ $data["title"] }}: <b>{{$data['movie']->getTitle()}}</b></div>
+            <div class="card-header" style="text-align: center; font-size: 25px">{{ $data["title"] }}</div>
             <div class="card-body">
             @if ( $errors->any() )
             <ul id="errors">
@@ -28,10 +28,10 @@
                     }
                 </style>
 
-                <input type="text" placeholder="Comment about the movie" name="opinion" style="height: 60px; width: 100%;" value="{{ old('opinion') }}" /><br>
-                <input type="number" step="0.1" placeholder="Number of stars" name="stars" min="1" max="5" value="{{ old('stars') }}" /><br>
-                <input type="hidden"  name="movie_id" value="{{ $data['movie']->getId() }}" /><br>
-                <input type="submit" style="text-align: center" value="Publish Review" />
+                <input type="text" placeholder="Address" name="address" style="height: 60px; width: 100%;" value="{{ old('address') }}" /><br>
+                <input type="text" placeholder="payment_type" name="payment_type" style="height: 60px; width: 100%;" value="{{ old('payment_type') }}" /><br>
+                <input type="hidden"  name="movie_id" value="" /><br>
+                <input type="submit" style="text-align: center" value="{{ $data["title"] }}" />
             </form>
 
             </div>

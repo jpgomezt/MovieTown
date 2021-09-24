@@ -7,21 +7,19 @@ use Illuminate\Http\Request;
 
 class Order extends Model
 {
-    
+
     //attributes id, address, date, payment_type, shipping_date,shipping_cost, total, is_shipped, user_id, created_at, updated_at
-    protected $fillable = ['address','date','payment_type','shipping_date',
-    'shipping_cost','total', 'is_shipped', 'user_id' ];
+    protected $fillable = [
+        'address', 'date', 'payment_type', 'shipping_date',
+        'shipping_cost', 'total', 'is_shipped', 'user_id'
+    ];
 
     public static function validate(Request $request)
     {
         $request->validate([
             "address" => "required",
-            "date" => "required|date",
             "payment_type" => "required",
-            "shipping_date" => "required",
-            "shipping_cost" => "required",
-            "total" => "required|numeric|min:0|not_in:0",
-            "is_shipped" => "required|boolean",]);
+        ]);
     }
 
     public function getId()

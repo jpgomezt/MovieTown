@@ -11,29 +11,53 @@ class OrderController extends Controller
 {
     public function create()
     {
-        $data = [];
-        $data["title"] = "Create order";
-
-        dd($data);
+        if (Auth::check()) {
+            $data = [];
+            $data["title"] = "Create order";
+            $data['user'] = User::find(Auth::id());
+            return view('order.create', ["data" => $data]);
+        }else{
+            return redirect()->route('home.index');
+        }
+        
     }
 
     public function show($id)
     {
-        $data = [];
-        $order = Order::findOrFail($id);
+        if (Auth::check()) {
+            $data = [];
+            $user = Auth::user();
+            $order = $user->orders()
+                ->where('id', $id)
+                ->first();
+            if ( $order !== null){
+                $order = Order::findOrFail($id);
+                $data["title"] = 'Order ' . $id;
+                $data["order"] = $order;
+                return view('order.show', ["data" => $data]);
+            }else if ($user->getIsStaff()){
+                dd('Es admin! Todo lo puede ver!');
+            }
+            
+        }
 
-        $data["title"] = 'Orden' . $id;
-        $data["order"] = $order;
-        dd($data);
+        
+        return redirect()->route('home.index');
+        
     }
 
     public function save(Request $request)
     {
-        Order::validate($request);
-        $user = User::find(Auth::id());
-        $order = new Order($request -> only(["address","date","payment_type","shipping_date","shipping_cost","total","is_shipped"]));
-        $user->orders()->save($order);
-        return back()->with('success', 'Elemento Creado Satisfactoriamente');
+        if (Auth::check()) {
+            Order::validate($request);
+            $user = User::find(Auth::id());
+            $order = new Order($request -> only(["address","payment_type"]));
+            $order->setDate(date("Y/m/d"));
+            $user->orders()->save($order);
+            return redirect()->route('order.list');
+        }else{
+            return redirect()->route('home.index');
+        }
     }
 
     public function list()
