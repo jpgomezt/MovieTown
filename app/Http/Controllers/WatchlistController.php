@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\User;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,9 +38,15 @@ class WatchlistController extends Controller
     public function create(Request $request)
     {
         if (Auth::check()) {
+            $user = Auth::user();
             $data = [];
             $data["title"] = "Create Watchlist";
-            return view('watchlist.create', ['data' => $data]);
+            if ($user->getIsStaff()) {
+                $data["users"] = User::where('is_staff', 0)->get();
+                return view('admin.watchlist.create', ['data' => $data]);
+            } else {
+                return view('watchlist.create', ['data' => $data]);
+            }
         }
         return redirect()->route('home.index');
     }
@@ -53,8 +60,10 @@ class WatchlistController extends Controller
             if ($user->getIsStaff()) {
                 // ------------------Provisional ----------- //
                 //dd('Eres admin - Puedes ver todas las watchlist');
+                $users = User::with('watchlists')->where('is_staff', 0)->get();
+                $data["users"] = $users;
                 $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
-                return view('watchlist.list', ['data' => $data]);
+                return view('admin.watchlist.list', ['data' => $data]);
                 // -------------------------------------------------
             } else {
                 $data["watchlists"] = $user->watchlists;
@@ -70,8 +79,14 @@ class WatchlistController extends Controller
             Watchlist::validate($request);
             $watchlist = new Watchlist($request->only(['name', 'description']));
             $user = Auth::user();
-            $user->watchlists()->save($watchlist);
-            return redirect()->route('watchlist.list');
+            if ($user->getIsStaff()) {
+                $watchlist_user = User::find($request->input('user_id'));
+                $watchlist_user->watchlists()->save($watchlist);
+                return redirect()->route('watchlist.list');
+            } else {
+                $user->watchlists()->save($watchlist);
+                return redirect()->route('watchlist.list');
+            }
         }
         return back();
     }
