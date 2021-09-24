@@ -39,7 +39,7 @@ Route::get('movie/create', [App\Http\Controllers\MovieController::class, 'create
 Route::post('movie/save', [App\Http\Controllers\MovieController::class, 'save'])->name("movie.save");
 Route::get('movie/list', [App\Http\Controllers\MovieController::class, 'list'])->name("movie.list");
 Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name("movie.show");
-Route::post('movie/delete{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
+Route::post('movie/delete/{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::get('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
 
 Route::get('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");

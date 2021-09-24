@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\ImageStorage;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -41,9 +42,12 @@ class MovieController extends Controller
     public function show($id)
     {
         $data = [];
-        $data["movie"] = Movie::with("reviews")->findOrFail($id);
+        $data["movie"] = Movie::with('reviews.user')->find($id);
 
-        //dd($data["review"]->user->getName());
+        if (Auth::check()) {
+            $data["watchlists"] = Auth::user()->watchlists;
+        }
+
         return view('movie.show', ['data' => $data]);
     }
 
