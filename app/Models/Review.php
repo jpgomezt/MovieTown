@@ -14,9 +14,7 @@ class Review extends Model
     {
         $request->validate([
             "opinion" => "required",
-            "stars" => "required|numeric|gt:0",
-            "is_visible" => "required|boolean",
-            "date" => "required|date",]);
+            "stars" => "required|numeric|gt:0",]);
     }
 
     public function getId()

@@ -1,39 +1,43 @@
 @extends('layouts.app')
 
+@section('title', $data['review']->movie->getTitle())
+
 @section('content')
-<!-- About Section-->
-<section class="page-section bg-primary text-white mb-0" id="about">
-    <div class="container">
-        <!-- About Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-white">Movie: {{ $data['review']->movie->getTitle() }}</h2>
-        <h4 class="page-section-heading text-center text-white">Written at: {{ $data['review']->getDate() }}</h4>
-        <!-- Icon Divider-->
-        <div class="divider-custom divider-light">
-            <div class="divider-custom-line"></div>
-            @for ($i = 0; $i < $data['review']->getStars(); $i++)
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            @endfor
-            <div class="divider-custom-line"></div>
-        </div>
-        <!-- About Section Content-->
-        <div class="row">
-            <div class="col-lg-4 ml-auto"><p class="lead">Written by: <br> {{ $data['review']->user->getName() }}</p></div>
-            <div class="col-lg-4 mr-auto"><p class="lead">{{ $data['review']->getOpinion() }}</p></div>
-        </div>
-        <!-- About Section Button-->
-        <div class="text-center mt-4">
-            <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/themes/freelancer/">
-                <i class="far fa-trash-alt mr-2"></i>
-                Delete
-            </a>
-            &nbsp;
-            <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/themes/freelancer/">
-                <i class="far fa-paper-plane mr-2"></i>
-                Request to be visible
-            </a>
+    <div class="container mt-4 mb-4">
+        <div class="card ">
+            <div class="card-header text-center" style="font-size: 35px;">Movie: {{ $data['review']->movie->getTitle() }}</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <b>Written by: </b><br>
+                        <span style="font-size: 25px">{{ $data['review']->user->getName() }}</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <b>Written in:</b> {{ $data['review']->getDate() }}<br>
+                        <b>Opinion:</b> {{ $data['review']->getOpinion() }}<br>
+                        <b style="text-align: center">Stars: </b> {{ $data['review']->getStars() }}<br>
+                        @for ($i = 0; $i < $data['review']->getStars() ; $i++)
+                            <i class="fas fa-star" style="color: yellow"></i>
+                        @endfor
+                        <br><br>
+                        <div class="row">
+                            <div class="col-sm-2">
+                            <form method="POST" action="{{ route('review.delete', ['id'=>$data['review']->getId()]) }}">
+                                @csrf 
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                            </div>
+                            <div class="col-sm-2">
+                            <form method="GET" action="{{ route('review.update', ['id'=>$data['review']->getId()]) }}">
+                                @csrf 
+                                <input type="submit" class="btn btn-info" value="Update">
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
-<!-- Contact Section-->
-
 @endsection
+

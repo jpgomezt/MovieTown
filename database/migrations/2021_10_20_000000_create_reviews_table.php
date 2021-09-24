@@ -14,7 +14,7 @@ class CreateReviewsTable extends Migration
             $table->string('opinion');
             $table->float('stars');
             $table->date('date');
-            $table->boolean('is_visible'); 
+            $table->boolean('is_visible')->default(true); 
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('movie_id')->constrained()->onDelete('cascade');
             $table->timestamps();
