@@ -53,35 +53,19 @@
                             <ul class="list-group list-group-horizontal justify-content-center">
                                 <li class="list-group-item">
                                     <div class="form-group">
-                                        <label class="h6">Add To Watchlist</label>
-                                        <form method="POST" action="{{ route('cart.add') }}">
-                                            @csrf
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                @for ($i = 1; $i <= $data['movie']->getSellQuantity(); $i++)
-                                                    <option>{{ $i }}</option>
-                                                @endfor
-                                            </select>
-                                        </form>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-group">
                                         <label class="h6" for="exampleFormControlSelect1">Add To Watchlist</label>
                                         <form method="POST" action="{{ route('watchlist.addMovie') }}">
                                             @csrf
-                                            <select class="form-control" id="exampleFormControlSelect1">
+                                            <select class="form-control" id="exampleFormControlSelect1" name="watchlist_id">
                                                 @foreach ($data['watchlists'] as $watchlist)
-                                                    <option>{{ $watchlist->getName() }}</option>
+                                                    <option value="{{ $watchlist->getId() }}">{{ $watchlist->getName() }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+                                            <input type="hidden" name="movie_id" value="{{ $data['movie']->getId() }}">
+                                            <input class="btn btn-success" type="submit" value="Create">
                                         </form>
                                     </div>
-                                </li>
-                                <li class="list-group-item ">
-                                    <label class="h6">Create Review</label>
-                                    <form method="POST" action="{{ route('cart.add') }}">
-                                        @csrf
-                                    </form>
                                 </li>
                             </ul>
                         @endguest
