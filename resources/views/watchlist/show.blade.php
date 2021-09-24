@@ -14,7 +14,7 @@
             </div>
             <!--<div class="card-header h1 text-center">{{ $data['watchlist']->getName() }}</div>-->
             <div class="card-body">
-                @if ($data['watchlist']->movies()->count() === 0)
+                @if ($data['watchlist']->movies->count() === 0)
                     <p class="card-text text-center">Your watchlist do not contain any movie - Go on and create an epic
                         one!!!</p>
                 @else
@@ -38,7 +38,7 @@
                                                 action="{{ route('watchlist.removeMovie', ['id' => $movie->getId()]) }} "
                                                 method="post">
                                                 @csrf
-                                                
+
                                                 <input type="hidden" name="watchlist_id"
                                                     value="{{ $data['watchlist']->getId() }}">
                                                 <input class="btn btn-danger" type="submit" value="Remove">
