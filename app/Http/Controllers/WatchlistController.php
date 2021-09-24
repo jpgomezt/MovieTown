@@ -15,8 +15,8 @@ class WatchlistController extends Controller
         if (Auth::check()) {
             $data = [];
             $watchlist = Watchlist::with('movies')
-                            ->where('user_id', Auth::id())
-                            ->find($id);
+                ->where('user_id', Auth::id())
+                ->find($id);
 
             if ($watchlist !== null) {
                 $data["title"] = $watchlist->getName();
@@ -69,15 +69,12 @@ class WatchlistController extends Controller
         return back();
     }
 
-    public function addMovie(Request $request, $id)
+    public function addMovie(Request $request)
     {
-        $user = User::find(Auth::id());
-        $watchlist = $user->watchlists()
-            ->where('name', $request->input('name'))
-            ->first();
-        $movie = Movie::findOrFail($id);
+        $watchlist = Watchlist::find($request->input('watchlist_id'));
+        $movie = Movie::findOrFail($request->input('movie_id'));
         $watchlist->movies()->attach($movie);
-        dd("Movie added succesfully to watchlist (" . $watchlist['name'] . ") - Current movies in watchlist", $watchlist->movies);
+        return redirect()->route('watchlist.show', ["id" => $request->input('watchlist_id')]);
     }
 
     public function removeMovie(Request $request, $id)
