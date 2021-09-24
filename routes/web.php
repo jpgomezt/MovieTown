@@ -43,12 +43,14 @@ Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'sho
 Route::post('movie/delete{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::get('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
 
-Route::post('review/create', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
+Route::get('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
 Route::post('review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("review.save");
 Route::get('review/list', [App\Http\Controllers\ReviewController::class, 'list'])->name("review.list");
 Route::get('review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("review.show");
 Route::post('review/delete/{id}', [App\Http\Controllers\ReviewController::class, 'delete'])->name("review.delete");
 Route::get('review/truncateReview', [App\Http\Controllers\ReviewController::class, 'truncateReview'])->name("review.truncateReview");
+Route::get('review/update/{id}', [App\Http\Controllers\ReviewController::class, 'update'])->name("review.update");
+Route::post('review/updateProcess/{id}', [App\Http\Controllers\ReviewController::class, 'updateProcess'])->name("review.updateProcess");
 
 
 Route::get('order/create', [App\Http\Controllers\OrderController::class, 'create'])->name("order.create");
