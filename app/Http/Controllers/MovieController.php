@@ -54,25 +54,38 @@ class MovieController extends Controller
     public function list()
     {
         $data = [];
-        $data["page"] = "List of movies";
+        $data["title"] = "List of movies";
         $data["movies"] = Movie::all();
 
-        dd($data);
-        //return view('movie.list')->with("data", $data);
+        return view('movie.list', ['data' => $data]);
     }
 
     public function filter(Request $request)
     {
-        $rentQuantityOperator = '=';
-        if ($request->input('isForRent') == 'true') {
+        if (is_null($request->input('title'))) {
+            $title = "";
+        } else {
+            $title = $request->input('title');
+        }
+
+        if (is_null($request->input('price'))) {
+            $price = PHP_INT_MAX;
+        } else {
+            $price = $request->input('price');
+        }
+
+        $data = [];
+        $data["title"] = "Filtered Movies";
+        $rentQuantityOperator = '>=';
+        if ($request->input('rent') == 'on') {
             $rentQuantityOperator = '>';
         }
-        $movies = Movie::where('title', 'like', '%' . $request->input('title') . '%')
+        $data["movies"] = Movie::where('title', 'like', '%' . $title . '%')
             ->where('critics_score', '>=', $request->input('score'))
-            ->where('price', '<=', $request->input('price'))
+            ->where('price', '<=', $price)
             ->where('rent_quantity', $rentQuantityOperator, '0')
             ->get();
 
-        dd($movies);
+        return view('movie.list', ['data' => $data]);
     }
 }
