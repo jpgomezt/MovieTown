@@ -31,16 +31,15 @@ Route::get('watchlist/list', [App\Http\Controllers\WatchlistController::class, '
 Route::get('watchlist/show/{id}', [App\Http\Controllers\WatchlistController::class, 'show'])->name('watchlist.show');
 Route::post('watchlist/save', [App\Http\Controllers\WatchlistController::class, 'save'])->name('watchlist.save');
 Route::post('watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::class, 'delete'])->name('watchlist.delete');
-Route::get('watchlist/addMovie', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
-Route::get('watchlist/addMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
+Route::post('watchlist/addMovie', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
 Route::get('watchlist/removeMovie', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
-Route::get('watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
+Route::post('watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
 
 Route::get('movie/create', [App\Http\Controllers\MovieController::class, 'create'])->name("movie.create");
 Route::post('movie/save', [App\Http\Controllers\MovieController::class, 'save'])->name("movie.save");
 Route::get('movie/list', [App\Http\Controllers\MovieController::class, 'list'])->name("movie.list");
 Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name("movie.show");
-Route::post('movie/delete{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
+Route::post('movie/delete/{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::get('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
 
 Route::get('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");

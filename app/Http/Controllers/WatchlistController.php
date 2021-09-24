@@ -12,34 +12,43 @@ class WatchlistController extends Controller
 {
     public function show($id)
     {
-        $data = [];
+        if (Auth::check()) {
+            $data = [];
+            $watchlist = Watchlist::with('movies')
+                ->where('user_id', Auth::id())
+                ->find($id);
 
-        $watchlist = Watchlist::findOrFail($id);
-
-        $data["title"] = $watchlist->getName();
-        $data["watchlist"] = $watchlist;
-        //dd($data["watchlist"]);
-        return view('watchlist.show', ['data'=> $data]);
+            if ($watchlist !== null) {
+                $data["title"] = $watchlist->getName();
+                $data["watchlist"] = $watchlist;
+                return view('watchlist.show', ['data' => $data]);
+            }
+        }
+        return redirect()->route('home.index');
     }
 
     public function create(Request $request)
     {
-        $data = [];
-        $data["title"] = "Create Watchlist";
-        //dd($data["watchlists"]);
-        return view('watchlist.create', ['data'=> $data]);
+        if (Auth::check()) {
+            $data = [];
+            $data["title"] = "Create Watchlist";
+            return view('watchlist.create', ['data' => $data]);
+        }
+        return redirect()->route('home.index');
     }
-    
+
     public function list()
     {
-        $data = [];
-        $data["title"] = "List Watchlists";
-        $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
+        if (Auth::check()) {
+            $data = [];
+            $data["title"] = "List Watchlists";
+            $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
 
-        $user = User::findOrFail(Auth::id());
-        $data["watchlists"] = $user->watchlists;
-        //dd($data["watchlists"]);
-        return view('watchlist.list', ['data'=> $data]);
+            $user = User::findOrFail(Auth::id());
+            $data["watchlists"] = $user->watchlists;
+            return view('watchlist.list', ['data' => $data]);
+        }
+        return redirect()->route('home.index');
     }
 
     public function save(Request $request)
@@ -60,23 +69,20 @@ class WatchlistController extends Controller
         return back();
     }
 
-    public function addMovie(Request $request, $id)
+    public function addMovie(Request $request)
     {
-        $user = User::find(Auth::id());
-        $watchlist = $user->watchlists()
-                          ->where('name', $request->input('name'))
-                          ->first();
-        $movie = Movie::findOrFail($id);
+        $watchlist = Watchlist::find($request->input('watchlist_id'));
+        $movie = Movie::findOrFail($request->input('movie_id'));
         $watchlist->movies()->attach($movie);
-        dd("Movie added succesfully to watchlist (" . $watchlist['name'] . ") - Current movies in watchlist", $watchlist->movies);
+        return redirect()->route('watchlist.show', ["id" => $request->input('watchlist_id')]);
     }
 
     public function removeMovie(Request $request, $id)
     {
         $user = User::find(Auth::id());
         $watchlist = $user->watchlists()
-                          ->where('id', $request->input('watchlist_id'))
-                          ->first();
+            ->where('id', $request->input('watchlist_id'))
+            ->first();
         $movie = Movie::findOrFail($id);
         $watchlist->movies()->detach($movie);
         return back();
