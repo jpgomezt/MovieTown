@@ -91,7 +91,7 @@
                                                 </form>
                                             </div>
                                             <div class="col-sm-6">
-                                                <form method="GET" action="{{ route('movie.update', ["id" => $movie->getId()])}}">
+                                                <form method="GET" action="{{ route('movie.update', ["id" => $movie->getId()]) }}">
                                                     @csrf
                                                     <input type="submit" class="btn btn-info" value="Update">
                                                 </form>
