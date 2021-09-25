@@ -70,9 +70,12 @@ class ReviewController extends Controller
             $data['list'] = Review::orderBy('id')->get();
             dd('Es admin! Todo lo puede ver!');
         } else {
-            $data['list'] = Review::orderBy('id')->where('user_id', $user->getId())->get();
+            $data['list'] = Review::orderBy('id')
+                ->where('user_id', $user->getId())
+                ->get();
+            return view('review.list', ["data" => $data]);
         }
-        return view('review.list', ["data" => $data]);
+        return redirect()->route('home.index');
     }
 
     public function delete($id)
