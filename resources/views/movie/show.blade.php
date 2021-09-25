@@ -53,17 +53,37 @@
                             <ul class="list-group list-group-horizontal justify-content-center">
                                 <li class="list-group-item">
                                     <div class="form-group">
+                                        <label class="h6" for="exampleFormControlSelect1">Add To Cart <i
+                                                class="fas fa-shopping-cart"></i></label>
+                                        <form method="POST" action="{{ route('cart.add') }}">
+                                            @csrf
+                                            <div class="custom-control custom-switch">
+                                                <input class="custom-control-input" type="checkbox" name="rent" id="rentSwitch">
+                                                <label class="custom-control-label" for="rentSwitch">
+                                                    ¿Renting?
+                                                </label>
+                                            </div>
+                                            <input class="form-control mt-2" type="text" placeholder="Enter quantity"
+                                                name="quantity">
+                                            <input type="hidden" name="movie_id" value="{{ $data['movie']->getId() }}">
+                                            <input class="btn btn-warning mt-2" type="submit" value="Add to Cart">
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-group">
                                         <label class="h6" for="exampleFormControlSelect1">Add To Watchlist</label>
                                         <form method="POST" action="{{ route('watchlist.addMovie') }}">
                                             @csrf
-                                            <select class="form-control" id="exampleFormControlSelect1" name="watchlist_id">
+                                            <select class="form-control mt-2" id="exampleFormControlSelect1"
+                                                name="watchlist_id">
                                                 @foreach ($data['watchlists'] as $watchlist)
                                                     <option value="{{ $watchlist->getId() }}">{{ $watchlist->getName() }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                             <input type="hidden" name="movie_id" value="{{ $data['movie']->getId() }}">
-                                            <input class="btn btn-success" type="submit" value="Create">
+                                            <input class="btn btn-danger mt-2" type="submit" value="Add to Watchlist">
                                         </form>
                                     </div>
                                 </li>
@@ -72,10 +92,9 @@
                                     <form method="POST"
                                         action="{{ route('review.create', ['id' => $data['movie']->getId()]) }}">
                                         @csrf
-                                        <input class="btn btn-success" type="submit" value="Create">
+                                        <input class="btn btn-success mt-2" type="submit" value="Create">
                                     </form>
                                 </li>
-
                             </ul>
                         @endguest
                     </div>
