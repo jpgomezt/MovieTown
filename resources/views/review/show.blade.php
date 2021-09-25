@@ -16,7 +16,7 @@
                         <b>Written in:</b> {{ $data['review']->getDate() }}<br>
                         <b>Opinion:</b> {{ $data['review']->getOpinion() }}<br>
                         <b style="text-align: center">Stars: </b> {{ $data['review']->getStars() }}<br>
-                        @for ($i = 0; $i < $data['review']->getStars() ; $i++)
+                        @for ($i = 0; $i < round($data['review']->getStars()) ; $i++)
                             <i class="fas fa-star" style="color: yellow"></i>
                         @endfor
                         <br><br>

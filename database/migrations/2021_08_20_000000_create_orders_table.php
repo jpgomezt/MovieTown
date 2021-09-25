@@ -14,10 +14,10 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->date('date');
             $table->string('payment_type');
-            $table->date('shipping_date'); 
-            $table->double('shipping_cost');
-            $table->double('total');
-            $table->boolean('is_shipped');
+            $table->date('shipping_date')->nullable(); 
+            $table->double('shipping_cost')->default(5.30);
+            $table->double('total')->default(0.00);
+            $table->boolean('is_shipped')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
