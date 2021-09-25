@@ -67,6 +67,15 @@
                                         </form>
                                     </div>
                                 </li>
+                                <li class="list-group-item ">
+                                    <label class="h6">Create Review</label>
+                                    <form method="POST"
+                                        action="{{ route('review.create', ['id' => $data['movie']->getId()]) }}">
+                                        @csrf
+                                        <input class="btn btn-success" type="submit" value="Create">
+                                    </form>
+                                </li>
+
                             </ul>
                         @endguest
                     </div>
