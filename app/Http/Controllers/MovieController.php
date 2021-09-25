@@ -12,10 +12,15 @@ class MovieController extends Controller
 
     public function create()
     {
-        $data = [];
-        $data["title"] = "Create Movie";
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $data = [];
+                $data["title"] = "Create Movie";
 
-        return view('movie.create', ['data' => $data]);
+                return view('movie.create', ['data' => $data]);
+            }
+        }
+        return back();
     }
 
     public function save(Request $request)
@@ -35,8 +40,9 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->delete();
 
-        dd($movie);
-        return redirect()->route('movie.list')->with('success', 'Movie removed successfully!');
+        //dd($movie);
+        //return redirect()->route('movie.list')->with('success', 'Movie removed successfully!');
+        return back();
     }
 
     public function show($id)
@@ -51,11 +57,60 @@ class MovieController extends Controller
         return view('movie.show', ['data' => $data]);
     }
 
+    public function update($id)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $movie = Movie::find($id);
+                $data = [];
+                $data["title"] = "Update Movie";
+                $data["movie"] = $movie;
+
+                return view('admin.movie.update', ['data' => $data]);
+            }
+        }
+        return back();
+    }
+
+    public function saveUpdate(Request $request)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $movie = Movie::find($request->input('movie_id'));
+
+                $movie->setTitle($request->input('title'));
+                $movie->setPlot($request->input('plot'));
+                $movie->setPrice($request->input('price'));
+                $movie->setCriticsScore($request->input('critics_score'));
+                $movie->setRentQuantity($request->input('rent_quantity'));
+                $movie->setSellQuantity($request->input('sell_quantity'));
+                $storeInterface = app(ImageStorage::class);
+                $storeInterface->store($movie->getId(), $request);
+                $movie->save();
+
+                $data = [];
+                $data["title"] =  "hola";
+                $data['movie'] = $movie;
+                $data["watchlists"] = Auth::user()->watchlists;
+
+                return redirect()->route('movie.show', ['id' => $movie->getId()]);
+            }
+        }
+        return redirect()->route('movie.show');
+    }
+
     public function list()
     {
         $data = [];
         $data["title"] = "List of movies";
         $data["movies"] = Movie::all();
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->getIsStaff()) {
+                return view('admin.movie.list', ['data' => $data]);
+            }
+        }
+
 
         return view('movie.list', ['data' => $data]);
     }
@@ -86,6 +141,6 @@ class MovieController extends Controller
             ->where('rent_quantity', $rentQuantityOperator, '0')
             ->get();
 
-        return view('movie.list', ['data' => $data]);
+        return view('admin.movie.list', ['data' => $data]);
     }
 }

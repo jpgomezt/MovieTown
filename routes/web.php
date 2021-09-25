@@ -41,6 +41,8 @@ Route::get('movie/list', [App\Http\Controllers\MovieController::class, 'list'])-
 Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name("movie.show");
 Route::post('movie/delete/{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::post('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
+Route::get('movie/update/{id}', [App\Http\Controllers\MovieController::class, 'update'])->name("movie.update");
+Route::post('movie/saveUpdate', [App\Http\Controllers\MovieController::class, 'saveUpdate'])->name("movie.saveUpdate");
 
 Route::get('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
 Route::post('review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("review.save");

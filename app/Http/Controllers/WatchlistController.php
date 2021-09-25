@@ -13,15 +13,23 @@ class WatchlistController extends Controller
     public function show($id)
     {
         if (Auth::check()) {
+            $user = Auth::user();
             $data = [];
-            $watchlist = Watchlist::with('movies')
-                ->where('user_id', Auth::id())
-                ->find($id);
-
-            if ($watchlist !== null) {
+            if ($user->getIsStaff()) {
+                $watchlist = Watchlist::with('movies')
+                    ->find($id);
                 $data["title"] = $watchlist->getName();
                 $data["watchlist"] = $watchlist;
                 return view('watchlist.show', ['data' => $data]);
+            } else {
+                $watchlist = Watchlist::with('movies')
+                    ->where('user_id', Auth::id())
+                    ->find($id);
+                if ($watchlist !== null) {
+                    $data["title"] = $watchlist->getName();
+                    $data["watchlist"] = $watchlist;
+                    return view('watchlist.show', ['data' => $data]);
+                }
             }
         }
         return redirect()->route('home.index');
@@ -30,9 +38,15 @@ class WatchlistController extends Controller
     public function create(Request $request)
     {
         if (Auth::check()) {
+            $user = Auth::user();
             $data = [];
             $data["title"] = "Create Watchlist";
-            return view('watchlist.create', ['data' => $data]);
+            if ($user->getIsStaff()) {
+                $data["users"] = User::where('is_staff', 0)->get();
+                return view('admin.watchlist.create', ['data' => $data]);
+            } else {
+                return view('watchlist.create', ['data' => $data]);
+            }
         }
         return redirect()->route('home.index');
     }
@@ -40,51 +54,100 @@ class WatchlistController extends Controller
     public function list()
     {
         if (Auth::check()) {
+            $user = Auth::user();
             $data = [];
             $data["title"] = "List Watchlists";
-            $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
-
-            $user = User::findOrFail(Auth::id());
-            $data["watchlists"] = $user->watchlists;
-            return view('watchlist.list', ['data' => $data]);
+            if ($user->getIsStaff()) {
+                // ------------------Provisional ----------- //
+                //dd('Eres admin - Puedes ver todas las watchlist');
+                $users = User::with('watchlists')->where('is_staff', 0)->get();
+                $data["users"] = $users;
+                $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
+                return view('admin.watchlist.list', ['data' => $data]);
+                // -------------------------------------------------
+            } else {
+                $data["watchlists"] = $user->watchlists;
+                return view('watchlist.list', ['data' => $data]);
+            }
         }
         return redirect()->route('home.index');
     }
 
     public function save(Request $request)
     {
-        Watchlist::validate($request);
-        $watchlist = new Watchlist($request->only(['name', 'description']));
-        $user = User::find(Auth::id());
-        $user->watchlists()->save($watchlist);
-        //dd('Create watchlist successfully!!');
-        return redirect()->route('watchlist.list');
+        if (Auth::check()) {
+            Watchlist::validate($request);
+            $watchlist = new Watchlist($request->only(['name', 'description']));
+            $user = Auth::user();
+            if ($user->getIsStaff()) {
+                $watchlist_user = User::find($request->input('user_id'));
+                $watchlist_user->watchlists()->save($watchlist);
+                return redirect()->route('watchlist.list');
+            } else {
+                $user->watchlists()->save($watchlist);
+                return redirect()->route('watchlist.list');
+            }
+        }
+        return back();
     }
 
     public function delete($id)
     {
-        $watchlist = Watchlist::find($id);
-        $watchlist->delete();
-        //dd("Watchlist ".$id.": Has been deleted");
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->getIsStaff() === 1) {
+                Watchlist::find($id)->delete();
+            } else {
+                $watchlist = $user->watchlists->find($id);
+                if ($watchlist !== null) {
+                    $watchlist->delete();
+                }
+            }
+        }
         return back();
     }
 
     public function addMovie(Request $request)
     {
-        $watchlist = Watchlist::find($request->input('watchlist_id'));
-        $movie = Movie::findOrFail($request->input('movie_id'));
-        $watchlist->movies()->attach($movie);
-        return redirect()->route('watchlist.show', ["id" => $request->input('watchlist_id')]);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->getIsStaff()) {
+                //dd('Eres admin');
+                $watchlist = Watchlist::findOrFail($request->input('watchlist_id'));
+                $movie = Movie::findOrFail($request->input('movie_id'));
+                $watchlist->movies()->attach($movie);
+                return redirect()->route('watchlist.show', ["id" => $request->input('watchlist_id')]);
+            } else {
+                $watchlist = $user->watchlists
+                    ->find($request->input('watchlist_id'));
+
+                if ($watchlist !== null) {
+                    $movie = Movie::findOrFail($request->input('movie_id'));
+                    $watchlist->movies()->attach($movie);
+                    return redirect()->route('watchlist.show', ["id" => $request->input('watchlist_id')]);
+                }
+            }
+        }
+        return back();
     }
 
     public function removeMovie(Request $request, $id)
     {
-        $user = User::find(Auth::id());
-        $watchlist = $user->watchlists()
-            ->where('id', $request->input('watchlist_id'))
-            ->first();
-        $movie = Movie::findOrFail($id);
-        $watchlist->movies()->detach($movie);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->getIsStaff() === 1) {
+                //dd('Eres admin');
+                $watchlist = Watchlist::findOrFail($request->input('watchlist_id'));
+                $movie = Movie::findOrFail($id);
+                $watchlist->movies()->detach($movie);
+            } else {
+                $watchlist = $user->watchlists
+                    ->where('id', $request->input('watchlist_id'))
+                    ->first();
+                $movie = Movie::findOrFail($id);
+                $watchlist->movies()->detach($movie);
+            }
+        }
         return back();
     }
 }
