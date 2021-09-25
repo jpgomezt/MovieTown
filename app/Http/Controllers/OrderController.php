@@ -11,47 +11,121 @@ class OrderController extends Controller
 {
     public function create()
     {
-        $data = [];
-        $data["title"] = "Create order";
-
-        dd($data);
+        if (Auth::check()) {
+            $data = [];
+            $data["title"] = "Create order";
+            $data['user'] = User::find(Auth::id());
+            return view('order.create', ["data" => $data]);
+        } else {
+            return redirect()->route('home.index');
+        }
     }
 
     public function show($id)
     {
-        $data = [];
-        $order = Order::findOrFail($id);
+        if (Auth::check()) {
+            $data = [];
+            $user = Auth::user();
+            $order = $user->orders()
+                ->where('id', $id)
+                ->first();
+            if ($order !== null) {
+                $order = Order::findOrFail($id);
+                $data["title"] = 'Order ' . $id;
+                $data["order"] = $order;
+                return view('order.show', ["data" => $data]);
+            } elseif ($user->getIsStaff()) {
+                dd('Es admin! Todo lo puede ver!');
+            }
+        }
 
-        $data["title"] = 'Orden' . $id;
-        $data["order"] = $order;
-        dd($data);
+        
+        return redirect()->route('home.index');
     }
 
     public function save(Request $request)
     {
-        Order::validate($request);
-        $user = User::find(Auth::id());
-        $order = new Order($request -> only(["address","date","payment_type","shipping_date","shipping_cost","total","is_shipped"]));
-        $user->orders()->save($order);
-        return back()->with('success', 'Elemento Creado Satisfactoriamente');
+        if (Auth::check()) {
+            Order::validate($request);
+            $user = User::find(Auth::id());
+            $order = new Order($request -> only(["address","payment_type"]));
+            $order->setDate(date("Y/m/d"));
+            $user->orders()->save($order);
+            return redirect()->route('order.list');
+        } else {
+            return redirect()->route('home.index');
+        }
     }
 
     public function list()
     {
-        $data = Order::orderBy('id')->get();
-        dd($data);
+        $data = [];
+        $data['title'] = 'Orders list';
+        $user = Auth::user();
+        if ($user->getIsStaff()) {
+            $data['list'] = Order::orderBy('id')->get();
+            dd('Es admin! Todo lo puede ver!');
+        } else {
+            $data['list'] = Order::orderBy('id')
+                    ->where('user_id', $user->getId())
+                    ->get();
+            
+            return view('order.list', ["data" => $data]);
+        }
+        return redirect()->route('home.index');
     }
 
     public function delete($id)
     {
-        
-        $order = Order::find($id);
+        if (Auth::check()) {
+            $order = Order::find($id);
 
-        $order->delete();
+            $order->delete();
 
-        dd($order);
+            return redirect()->route('order.list');
+        } else {
+            return redirect()->route('home.index');
+        }
     }
 
+
+    public function update($id)
+    {
+        if (Auth::check()) {
+            $data = [];
+            $user = Auth::user();
+            $order = $user->orders()
+                ->where('id', $id)
+                ->first();
+            if ($order !== null) {
+                $data["title"] = "Update order";
+                $data['order'] = Order::findOrFail($id);
+
+                return view('order.update', ["data" => $data]);
+            } elseif ($user->getIsStaff()) {
+                dd('Es admin! Todo lo puede ver!');
+            }
+        } else {
+            return redirect()->route('home.index');
+        }
+    }
+
+    public function updateProcess(Request $request, $id)
+    {
+        if (Auth::check()) {
+            Order::validate($request);
+            $user = User::find(Auth::id());
+            $order = Order::findOrFail($id);
+            $order->setAddress($request->input('address'));
+            $order->setPaymentType($request->input('payment_type'));
+            $order->setDate(date("Y/m/d"));
+            $user->orders()->save($order);
+
+            return redirect()->route('order.show', ['id' => $id]);
+        } else {
+            return redirect()->route('home.index');
+        }
+    }
 
     public function cancelOrder(Request $request, $id)
     {
@@ -59,7 +133,7 @@ class OrderController extends Controller
         # Restablezca valores de movies
     }
 
-    public function hasBeenShipped(Request $request, $id)
+    public function hasBeenShipped($id)
     {
         # Cambia estado de is_shipped
         # Solo admin

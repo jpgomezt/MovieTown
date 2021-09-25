@@ -44,7 +44,7 @@ Route::post('movie/filter', [App\Http\Controllers\MovieController::class, 'filte
 Route::get('movie/update/{id}', [App\Http\Controllers\MovieController::class, 'update'])->name("movie.update");
 Route::post('movie/saveUpdate', [App\Http\Controllers\MovieController::class, 'saveUpdate'])->name("movie.saveUpdate");
 
-Route::get('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
+Route::post('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
 Route::post('review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("review.save");
 Route::get('review/list', [App\Http\Controllers\ReviewController::class, 'list'])->name("review.list");
 Route::get('review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("review.show");
@@ -58,4 +58,8 @@ Route::get('order/create', [App\Http\Controllers\OrderController::class, 'create
 Route::post('order/save', [App\Http\Controllers\OrderController::class, 'save'])->name("order.save");
 Route::get('order/list', [App\Http\Controllers\OrderController::class, 'list'])->name("order.list");
 Route::get('order/show/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name("order.show");
+Route::get('order/update/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name("order.update");
 Route::post('order/delete/{id}', [App\Http\Controllers\OrderController::class, 'delete'])->name("order.delete");
+Route::post('order/updateProcess/{id}', [App\Http\Controllers\OrderController::class, 'updateProcess'])->name("order.updateProcess");
+
+Route::get('item/list', [App\Http\Controllers\ItemController::class, 'list'])->name("item.list");
