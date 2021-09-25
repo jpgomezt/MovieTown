@@ -41,26 +41,22 @@
                         <div class="col m-auto text-center">
                             <form>
                                 <div style="margin: 5px 0px;">
-                                <input class="btn btn-primary ms-4" type="submit" value="Filter Movies">
-                                </div>
-                                
-                                <div style="margin: 5px 0px;">
-                                <a class="btn btn-primary" href=" {{ route('movie.list') }} " role="button">All movies</a>
-                                </div>
-                                
-                                <div style="margin: 5px 0px;">
-                                <a class="btn btn-primary" href=" {{ route('movie.create') }} " role="button">Add new movie</a>
+                                    <input class="btn btn-primary ms-4" type="submit" value="Filter Movies">
                                 </div>
 
+                                <div style="margin: 5px 0px;">
+                                    <a class="btn btn-primary" href=" {{ route('movie.list') }} " role="button">All
+                                        movies</a>
+                                </div>
+
+                                <div style="margin: 5px 0px;">
+                                    <a class="btn btn-primary" href=" {{ route('movie.create') }} " role="button">Add new
+                                        movie</a>
+                                </div>
                             </form>
-
                         </div>
-
                     </div>
-
                 </form>
-
-
                 <hr>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach ($data['movies'] as $movie)
@@ -95,7 +91,7 @@
                                                 </form>
                                             </div>
                                             <div class="col-sm-6">
-                                                <form method="GET" action="#">
+                                                <form method="GET" action="{{ route('movie.update', ["id" => $movie->getId()])}}">
                                                     @csrf
                                                     <input type="submit" class="btn btn-info" value="Update">
                                                 </form>
