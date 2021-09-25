@@ -53,7 +53,6 @@ Route::get('review/truncateReview', [App\Http\Controllers\ReviewController::clas
 Route::get('review/update/{id}', [App\Http\Controllers\ReviewController::class, 'update'])->name("review.update");
 Route::post('review/updateProcess/{id}', [App\Http\Controllers\ReviewController::class, 'updateProcess'])->name("review.updateProcess");
 
-
 Route::get('order/create', [App\Http\Controllers\OrderController::class, 'create'])->name("order.create");
 Route::post('order/save', [App\Http\Controllers\OrderController::class, 'save'])->name("order.save");
 Route::get('order/list', [App\Http\Controllers\OrderController::class, 'list'])->name("order.list");
@@ -63,3 +62,8 @@ Route::post('order/delete/{id}', [App\Http\Controllers\OrderController::class, '
 Route::post('order/updateProcess/{id}', [App\Http\Controllers\OrderController::class, 'updateProcess'])->name("order.updateProcess");
 
 Route::get('item/list', [App\Http\Controllers\ItemController::class, 'list'])->name("item.list");
+
+Route::post('cart/add', [App\Http\Controllers\CartController::class, 'add'])->name("cart.add");
+Route::get('cart/show', [App\Http\Controllers\CartController::class, 'show'])->name("cart.show");
+Route::get('cart/empty', [App\Http\Controllers\CartController::class, 'empty'])->name("cart.empty");
+Route::post('cart/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name("cart.checkout");
