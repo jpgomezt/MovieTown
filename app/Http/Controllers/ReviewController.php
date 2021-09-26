@@ -41,7 +41,12 @@ class ReviewController extends Controller
 
                 return view('review.show', ["data" => $data]);
             } elseif ($user->getIsStaff()) {
-                dd('Es admin! Todo lo puede ver!');
+                //dd('Es admin! Todo lo puede ver!');
+                $review = Review::find($id);
+                $data = [];
+                $data["title"] = 'Review ' . $id;
+                $data["review"] = $review;
+                return view('admin.review.show', ["data" => $data]);
             }
         }
         return redirect()->route('home.index');
@@ -67,8 +72,9 @@ class ReviewController extends Controller
         $data['title'] = "List of Reviews";
         $user = Auth::user();
         if ($user->getIsStaff()) {
+            //dd('Es admin! Todo lo puede ver!');
             $data['list'] = Review::orderBy('id')->get();
-            dd('Es admin! Todo lo puede ver!');
+            return view('admin.review.list', ["data" => $data]);
         } else {
             $data['list'] = Review::orderBy('id')
                 ->where('user_id', $user->getId())
@@ -98,16 +104,23 @@ class ReviewController extends Controller
         if (Auth::check()) {
             $data = [];
             $user = Auth::user();
-            $review = $user->reviews()
-                ->where('id', $id)
-                ->first();
-            if ($review !== null) {
-                $data["title"] = "Update review";
-                $data['review'] = Review::findOrFail($id);
-
-                return view('review.update', ["data" => $data]);
-            } elseif ($user->getIsStaff()) {
-                dd('Es admin! Todo lo puede ver!');
+            if ($user->getIsStaff()) {
+                //dd('Es admin! Todo lo puede ver!');
+                $review = Review::find($id);
+                $data = [];
+                $data["title"] = 'Review ' . $id;
+                $data["review"] = $review;
+                return view('admin.review.update', ["data" => $data]);
+            } else {
+                $review = $user->reviews
+                    ->where('id', $id)
+                    ->first();
+                if ($review !== null) {
+                    $data["title"] = "Update review";
+                    $data['review'] = Review::findOrFail($id);
+                    return view('review.update', ["data" => $data]);
+                }
+                return back();
             }
         } else {
             return redirect()->route('home.index');
@@ -122,13 +135,16 @@ class ReviewController extends Controller
     {
         if (Auth::check()) {
             Review::validate($request);
-            $user = User::find(Auth::id());
+            $user = Auth::user();
             $review = Review::findOrFail($id);
             $review->setOpinion($request->input('opinion'));
             $review->setStars($request->input('stars'));
             $review->setMovieId($request->input('movie_id'));
             $review->setDate(date("Y/m/d"));
-            $user->reviews()->save($review);
+            if ($user->getIsStaff()) {
+                $review->setIsVisible($request->input('is_visible'));
+            }
+            $review->save();
             return redirect()->route('movie.show', ['id' => $request->input('movie_id')]);
         } else {
             return redirect()->route('home.index');
