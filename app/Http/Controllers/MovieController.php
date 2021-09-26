@@ -141,6 +141,13 @@ class MovieController extends Controller
             ->where('rent_quantity', $rentQuantityOperator, '0')
             ->get();
 
-        return view('admin.movie.list', ['data' => $data]);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->getIsStaff()) {
+                return view('admin.movie.list', ['data' => $data]);
+            }
+        }
+
+        return view('movie.list', ['data' => $data]);
     }
 }
