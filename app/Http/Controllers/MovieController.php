@@ -12,26 +12,20 @@ class MovieController extends Controller
 
     public function create()
     {
-        if (Auth::check()) {
-            if (Auth::user()->getIsStaff()) {
-                $data = [];
-                $data["title"] = "Create Movie";
-
-                return view('movie.create', ['data' => $data]);
-            }
+        if (Auth::check() && Auth::user()->getIsStaff()) {
+            $data = [];
+            $data["title"] = "Create Movie";
+            return view('movie.create', ['data' => $data]);
         }
         return back();
     }
 
     public function save(Request $request)
     {
-        #VALIDATE IMAGE
         Movie::validate($request);
         $movie = Movie::create($request->only(["title", "plot", "critics_score", "price", "rent_quantity", "sell_quantity"]));
         $storeInterface = app(ImageStorage::class);
         $storeInterface->store($movie->getId(), $request);
-
-
         return redirect()->route('movie.show', ['id' => $movie->getId()]);
     }
 
@@ -39,9 +33,6 @@ class MovieController extends Controller
     {
         $movie = Movie::findOrFail($id);
         $movie->delete();
-
-        //dd($movie);
-        //return redirect()->route('movie.list')->with('success', 'Movie removed successfully!');
         return back();
     }
 
@@ -49,11 +40,9 @@ class MovieController extends Controller
     {
         $data = [];
         $data["movie"] = Movie::with('reviews.user')->find($id);
-
         if (Auth::check()) {
             $data["watchlists"] = Auth::user()->watchlists;
         }
-
         return view('movie.show', ['data' => $data]);
     }
 
@@ -65,7 +54,6 @@ class MovieController extends Controller
                 $data = [];
                 $data["title"] = "Update Movie";
                 $data["movie"] = $movie;
-
                 return view('admin.movie.update', ['data' => $data]);
             }
         }
@@ -77,7 +65,6 @@ class MovieController extends Controller
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
                 $movie = Movie::find($request->input('movie_id'));
-
                 $movie->setTitle($request->input('title'));
                 $movie->setPlot($request->input('plot'));
                 $movie->setPrice($request->input('price'));
@@ -87,31 +74,23 @@ class MovieController extends Controller
                 $storeInterface = app(ImageStorage::class);
                 $storeInterface->store($movie->getId(), $request);
                 $movie->save();
-
-                $data = [];
-                $data["title"] =  "hola";
-                $data['movie'] = $movie;
-                $data["watchlists"] = Auth::user()->watchlists;
-
                 return redirect()->route('movie.show', ['id' => $movie->getId()]);
             }
         }
-        return redirect()->route('movie.show');
+        return back();
     }
 
     public function list()
     {
         $data = [];
         $data["title"] = "List of movies";
-        $data["movies"] = Movie::all();
+        $data["movies"] = Movie::all()->sortBy('id');
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->getIsStaff()) {
                 return view('admin.movie.list', ['data' => $data]);
             }
         }
-
-
         return view('movie.list', ['data' => $data]);
     }
 
@@ -147,7 +126,6 @@ class MovieController extends Controller
                 return view('admin.movie.list', ['data' => $data]);
             }
         }
-
         return view('movie.list', ['data' => $data]);
     }
 }
