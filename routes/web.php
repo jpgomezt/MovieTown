@@ -42,7 +42,6 @@ Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'sho
 Route::post('movie/delete/{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::post('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
 Route::get('movie/update/{id}', [App\Http\Controllers\MovieController::class, 'update'])->name("movie.update");
-Route::post('movie/saveUpdate', [App\Http\Controllers\MovieController::class, 'saveUpdate'])->name("movie.saveUpdate");
 
 Route::post('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
 Route::post('review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("review.save");
@@ -67,3 +66,19 @@ Route::post('cart/add', [App\Http\Controllers\CartController::class, 'add'])->na
 Route::get('cart/show', [App\Http\Controllers\CartController::class, 'show'])->name("cart.show");
 Route::get('cart/empty', [App\Http\Controllers\CartController::class, 'empty'])->name("cart.empty");
 Route::post('cart/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name("cart.checkout");
+
+Route::get('admin/movie/list', [App\Http\Controllers\MovieController::class, 'list'])->name('admin.movie.list');
+Route::get('admin/movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name('admin.movie.show');
+Route::get('admin/movie/create', [App\Http\Controllers\MovieController::class, 'create'])->name('admin.movie.create');
+Route::post('admin/movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name('admin.movie.filter');
+Route::get('admin/movie/update/{id}', [App\Http\Controllers\MovieController::class, 'update'])->name('admin.movie.update');
+Route::post('admin/movie/saveUpdate', [App\Http\Controllers\MovieController::class, 'saveUpdate'])->name("admin.movie.saveUpdate");
+Route::post('admin/movie/save', [App\Http\Controllers\MovieController::class, 'save'])->name("admin.movie.save");
+
+Route::get('admin/watchlist/list', [App\Http\Controllers\WatchlistController::class, 'list'])->name('admin.watchlist.list');
+Route::get('admin/watchlist/create', [App\Http\Controllers\WatchlistController::class, 'create'])->name('admin.watchlist.create');
+Route::get('admin/watchlist/show/{id}', [App\Http\Controllers\WatchlistController::class, 'show'])->name('admin.watchlist.show');
+Route::post('admin/watchlist/save', [App\Http\Controllers\WatchlistController::class, 'save'])->name('admin.watchlist.save');
+Route::post('admin/watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::class, 'delete'])->name('admin.watchlist.delete');
+
+Route::post('admin/review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name('admin.review.create');

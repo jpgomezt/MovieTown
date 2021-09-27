@@ -9,7 +9,7 @@
                 <h1>Actual Movies</h1>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('movie.filter') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.movie.filter') }}" enctype="multipart/form-data">
                     @csrf
                     <h5>Filters</h5>
                     <div class="row mb-3">
@@ -45,12 +45,12 @@
                                 </div>
 
                                 <div style="margin: 5px 0px;">
-                                    <a class="btn btn-primary" href=" {{ route('movie.list') }} " role="button">All
+                                    <a class="btn btn-primary" href=" {{ route('admin.movie.list') }} " role="button">All
                                         movies</a>
                                 </div>
 
                                 <div style="margin: 5px 0px;">
-                                    <a class="btn btn-primary" href=" {{ route('movie.create') }} " role="button">Add new
+                                    <a class="btn btn-primary" href=" {{ route('admin.movie.create') }} " role="button">Add new
                                         movie</a>
                                 </div>
                             </form>
@@ -78,7 +78,7 @@
                                                 <h6 class="card-subtitle mb-2 text-muted">{{ $movie->getPlot() }}</h6>
                                             @endif
                                         </div>
-                                        <a href="{{ route('movie.show', ['id' => $movie->getId()]) }}"
+                                        <a href="{{ route('admin.movie.show', ['id' => $movie->getId()]) }}"
                                             class="stretched-link"></a>
                                     </li>
                                     <li class="list-group-item mt-auto mb-auto">
@@ -91,7 +91,7 @@
                                                 </form>
                                             </div>
                                             <div class="col-sm-6">
-                                                <form method="GET" action="{{ route('movie.update', ["id" => $movie->getId()]) }}">
+                                                <form method="GET" action="{{ route('admin.movie.update', ["id" => $movie->getId()]) }}">
                                                     @csrf
                                                     <input type="submit" class="btn btn-info" value="Update">
                                                 </form>
