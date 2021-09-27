@@ -20,33 +20,37 @@
                             @csrf
                             <div class="input-group mb-3">
                                 <input class="form-control" type="text" placeholder="Enter title" name="title"
-                                    value="{{ $data["movie"]->getTitle() }}" />
+                                    value="{{ $data['movie']->getTitle() }}" />
                             </div>
                             <div class="input-group mb-3">
                                 <input class="form-control" type="text" placeholder="Enter plot" name="plot"
-                                    value="{{ $data["movie"]->getPlot() }}" />
+                                    value="{{ $data['movie']->getPlot() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter critics score"
-                                    name="critics_score" value="{{ $data["movie"]->getCriticsScore() }}" />
+                                <input class="form-control" type="number" step="0.1" placeholder="Enter critics score"
+                                    name="critics_score" value="{{ $data['movie']->getCriticsScore() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter price" name="price"
-                                    value="{{ $data["movie"]->getPrice() }}" />
+                                <input class="form-control" type="number" step="0.01" placeholder="Enter price"
+                                    name="price" value="{{ $data['movie']->getPrice() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter rent quantity"
-                                    name="rent_quantity" value="{{ $data["movie"]->getRentQuantity() }}" />
+                                <input class="form-control" type="number" placeholder="Enter rent quantity"
+                                    name="rent_quantity" value="{{ $data['movie']->getRentQuantity() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter sell quantity"
-                                    name="sell_quantity" value="{{ $data["movie"]->getSellQuantity() }}" />
+                                <input class="form-control" type="number" placeholder="Enter sell quantity"
+                                    name="sell_quantity" value="{{ $data['movie']->getSellQuantity() }}" />
                             </div>
                             <div class="input-group mb-3">
                                 <label>Image:</label>
-                                <input class="form-control" type="file" name="movie_image" value="{{ URL::asset('storage/' . $data["movie"]->getId() . '.png') }}"/>
+                                <input class="form-control" type="file" name="movie_image"
+                                    value="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
                             </div>
-                        <input type="hidden" name="movie_id" value="{{ $data["movie"]->getId() }}"> 
+                            <div class="input-group mb-3">
+                                <img src="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
+                            </div>
+                            <input type="hidden" name="movie_id" value="{{ $data['movie']->getId() }}">
                             <input class="btn btn-success" type="submit" value="Update">
                         </form>
                     </div>

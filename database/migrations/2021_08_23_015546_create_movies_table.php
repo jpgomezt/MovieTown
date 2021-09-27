@@ -14,7 +14,7 @@ class CreateMoviesTable extends Migration
             $table->text('title');
             $table->longText('plot');
             $table->double('critics_score', 2, 1);
-            $table->integer('price');
+            $table->double('price');
             $table->smallInteger('rent_quantity');
             $table->smallInteger('sell_quantity');
             $table->timestamps();
