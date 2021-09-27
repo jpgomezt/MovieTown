@@ -75,7 +75,7 @@ class CartController extends Controller
             }
 
             session()->put('products', $products);
-            if (!$products) {
+            if (! $products) {
                 $data["empty"] = true;
                 return view('cart.show', ['data' => $data]);
             }
