@@ -18,7 +18,7 @@
             </ul>
             @endif
 
-            <form method="POST" action="{{ route('review.updateProcess', ['id' => $data['review']->getId()]) }}">
+            <form method="POST" action="{{ route('review.saveUpdate', ['id' => $data['review']->getId()]) }}">
                 @csrf
                 <style>
                     input{

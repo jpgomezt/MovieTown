@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -21,7 +21,6 @@ class OrderController extends Controller
                 $data["order"] = $order;
                 return view('order.show', ["data" => $data]);
             } elseif ($user->getIsStaff()) {
-                dd('Es admin! Todo lo puede ver!');
             }
         }
         return redirect()->route('home.index');
@@ -34,7 +33,6 @@ class OrderController extends Controller
         $user = Auth::user();
         if ($user->getIsStaff()) {
             $data['list'] = Order::with('user')->orderBy('id')->get();
-            dd('Es admin! Todo lo puede ver!');
         } else {
             $data['list'] = Order::with('user')
                 ->orderBy('id')
@@ -54,5 +52,26 @@ class OrderController extends Controller
             return redirect()->route('order.list');
         }
         return redirect()->route('home.index');
+    }
+
+    public function ordersPdf()
+    {
+        
+        $data = [];
+        $data['title'] = 'Orders list';
+        $user = Auth::user();
+        if ($user->getIsStaff()) {
+            $data['list'] = Order::with('user')->orderBy('id')->get();
+        } else {
+            $data['list'] = Order::with('user')
+                ->orderBy('id')
+                ->where('user_id', $user->getId())
+                ->get();
+        }
+
+        $pdf = PDF::loadView('order.downloadPdf', ["data" => $data]);
+
+        // download pdf file
+        return $pdf->download('Orders.pdf');
     }
 }

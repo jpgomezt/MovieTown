@@ -45,15 +45,13 @@ Route::get('review/list', [App\Http\Controllers\ReviewController::class, 'list']
 Route::get('review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("review.show");
 Route::post('review/delete/{id}', [App\Http\Controllers\ReviewController::class, 'delete'])->name("review.delete");
 Route::get('review/update/{id}', [App\Http\Controllers\ReviewController::class, 'update'])->name("review.update");
-Route::post('review/updateProcess/{id}', [App\Http\Controllers\ReviewController::class, 'updateProcess'])->name("review.updateProcess");
+Route::post('review/saveUpdate/{id}', [App\Http\Controllers\ReviewController::class, 'saveUpdate'])->name("review.saveUpdate");
 
-Route::get('order/create', [App\Http\Controllers\OrderController::class, 'create'])->name("order.create");
-Route::post('order/save', [App\Http\Controllers\OrderController::class, 'save'])->name("order.save");
+
 Route::get('order/list', [App\Http\Controllers\OrderController::class, 'list'])->name("order.list");
 Route::get('order/show/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name("order.show");
-Route::get('order/update/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name("order.update");
 Route::post('order/delete/{id}', [App\Http\Controllers\OrderController::class, 'delete'])->name("order.delete");
-Route::post('order/updateProcess/{id}', [App\Http\Controllers\OrderController::class, 'updateProcess'])->name("order.updateProcess");
+Route::get('order/ordersPdf', [App\Http\Controllers\OrderController::class, 'ordersPdf'])->name('order.ordersPdf');
 
 Route::get('item/list/{id}', [App\Http\Controllers\ItemController::class, 'list'])->name("item.list");
 
