@@ -16,7 +16,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <form method="POST" action="{{ route('movie.saveUpdate') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.movie.saveUpdate') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="input-group mb-3">
                                 <input class="form-control" type="text" placeholder="Enter title" name="title"

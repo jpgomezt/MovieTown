@@ -12,10 +12,12 @@ class MovieController extends Controller
 
     public function create()
     {
-        if (Auth::check() && Auth::user()->getIsStaff()) {
-            $data = [];
-            $data["title"] = "Create Movie";
-            return view('movie.create', ['data' => $data]);
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $data = [];
+                $data["title"] = "Create Movie";
+                return view('admin.movie.create', ['data' => $data]);
+            }
         }
         return back();
     }
@@ -26,7 +28,7 @@ class MovieController extends Controller
         $movie = Movie::create($request->only(["title", "plot", "critics_score", "price", "rent_quantity", "sell_quantity"]));
         $storeInterface = app(ImageStorage::class);
         $storeInterface->store($movie->getId(), $request);
-        return redirect()->route('movie.show', ['id' => $movie->getId()]);
+        return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
     }
 
     public function delete($id)
@@ -41,6 +43,11 @@ class MovieController extends Controller
         $data = [];
         $data["movie"] = Movie::with('reviews.user')->find($id);
         if (Auth::check()) {
+            $user = Auth::user();
+            $data["watchlists"] = $user->watchlists;
+            if ($user->getIsStaff()) {
+                return  view('admin.movie.show', ['data' => $data]);
+            }
             $data["watchlists"] = Auth::user()->watchlists;
         }
         return view('movie.show', ['data' => $data]);
@@ -74,7 +81,13 @@ class MovieController extends Controller
                 $storeInterface = app(ImageStorage::class);
                 $storeInterface->store($movie->getId(), $request);
                 $movie->save();
-                return redirect()->route('movie.show', ['id' => $movie->getId()]);
+                
+                $data = [];
+                $data["title"] =  "hola";
+                $data['movie'] = $movie;
+                $data["watchlists"] = Auth::user()->watchlists;
+
+                return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
             }
         }
         return back();

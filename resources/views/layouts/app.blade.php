@@ -41,16 +41,17 @@
                                 href="{{ route('register') }}">{{ __('Register') }} <i
                                     class="fas fa-cash-register"></i></a></li>
                     @else
+                    @if (Auth::user()->getIsStaff())
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                href="{{ route('movie.list') }}">Movies <i class="fas fa-ticket-alt"></i>
+                                href="{{ route('admin.movie.list') }}">Movies <i class="fas fa-ticket-alt"></i>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                 href="{{ route('cart.show') }}">Cart <i class="fas fa-shopping-cart"></i>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                href="{{ route('review.list') }}">Reviews <i class="far fa-comment"></i></a></li>
+                                href="{{ route('admin.review.list') }}">Reviews <i class="far fa-comment"></i></a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                 href="{{ route('order.list') }}">Orders <i class="fas fa-luggage-cart"></i></a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                href="{{ route('watchlist.list') }}">Watchlists <i class="fas fa-layer-group"></i></a>
+                                href="{{ route('admin.watchlist.list') }}">Watchlists <i class="fas fa-layer-group"></i></a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                 href="{{ route('logout') }}"
@@ -61,6 +62,28 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
+                        @else
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="{{ route('movie.list') }}">Movies <i class="fas fa-ticket-alt"></i>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="{{ route('cart.show') }}">Cart <i class="fas fa-shopping-cart"></i>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="{{ route('review.list') }}">Reviews <i class="far fa-comment"></i></a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="{{ route('order.list') }}">Orders <i class="fas fa-luggage-cart"></i></a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="{{ route('watchlist.list') }}">Watchlists <i class="fas fa-layer-group"></i></a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                                         document.getElementById('logout-form').submit();">{{ __('Logout') }} <i
+                                class="fas fa-sign-out-alt"></i></a></li>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                    @endif
                     @endguest
                 </ul>
             </div>
