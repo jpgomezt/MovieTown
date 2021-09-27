@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    /*
-        $id -> Movie ID
-    */
+
     public function create($id)
     {
         if (Auth::check()) {
@@ -41,7 +39,6 @@ class ReviewController extends Controller
 
                 return view('review.show', ["data" => $data]);
             } elseif ($user->getIsStaff()) {
-                //dd('Es admin! Todo lo puede ver!');
                 $review = Review::find($id);
                 $data = [];
                 $data["title"] = 'Review ' . $id;
@@ -72,7 +69,6 @@ class ReviewController extends Controller
         $data['title'] = "List of Reviews";
         $user = Auth::user();
         if ($user->getIsStaff()) {
-            //dd('Es admin! Todo lo puede ver!');
             $data['list'] = Review::orderBy('id')->get();
             return view('admin.review.list', ["data" => $data]);
         } else {
@@ -95,17 +91,12 @@ class ReviewController extends Controller
             return redirect()->route('home.index');
         }
     }
-
-    /*
-        $id -> Review ID
-    */
     public function update($id)
     {
         if (Auth::check()) {
             $data = [];
             $user = Auth::user();
             if ($user->getIsStaff()) {
-                //dd('Es admin! Todo lo puede ver!');
                 $review = Review::find($id);
                 $data = [];
                 $data["title"] = 'Review ' . $id;
@@ -126,11 +117,6 @@ class ReviewController extends Controller
             return redirect()->route('home.index');
         }
     }
-
-    /*
-        $request -> Request of the form
-        $id -> Review ID
-    */
     public function updateProcess(Request $request, $id)
     {
         if (Auth::check()) {
@@ -149,17 +135,5 @@ class ReviewController extends Controller
         } else {
             return redirect()->route('home.index');
         }
-    }
-
-    public function truncateReview(Request $request)
-    {
-
-        $review = Review::find($request->input("review_id"));
-
-        $opinion = $review->getOpinion();
-
-        $opinion = substr($opinion, 0, 50);
-
-        dd($opinion);
     }
 }
