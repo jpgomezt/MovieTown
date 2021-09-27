@@ -61,7 +61,7 @@ Route::get('order/update/{id}', [App\Http\Controllers\OrderController::class, 'u
 Route::post('order/delete/{id}', [App\Http\Controllers\OrderController::class, 'delete'])->name("order.delete");
 Route::post('order/updateProcess/{id}', [App\Http\Controllers\OrderController::class, 'updateProcess'])->name("order.updateProcess");
 
-Route::get('item/list', [App\Http\Controllers\ItemController::class, 'list'])->name("item.list");
+Route::get('item/list/{id}', [App\Http\Controllers\ItemController::class, 'list'])->name("item.list");
 
 Route::post('cart/add', [App\Http\Controllers\CartController::class, 'add'])->name("cart.add");
 Route::get('cart/show', [App\Http\Controllers\CartController::class, 'show'])->name("cart.show");
