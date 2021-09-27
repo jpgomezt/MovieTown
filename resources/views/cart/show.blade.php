@@ -8,7 +8,7 @@
             <div class="card-header text-center h1">Cart</div>
             <div class="card-body">
                 @if ($data['empty'])
-                    <p class="card-text text-center">You currently do not have any producst - Go on and add them !!!.</p>
+                    <p class="card-text text-center">You currently do not have any products - Go on and add them !!!.</p>
                 @else
                     @foreach ($data['movies'] as $movie)
                         <div class="col mb-3" style="max-width: 540px;">
