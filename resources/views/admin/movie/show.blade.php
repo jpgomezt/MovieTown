@@ -24,26 +24,33 @@
                             @endfor
                             <p class="card-text pl-2"> {{ $data['movie']->getCriticsScore() }}/5</p>
                         </div>
-                        <h5 class="card-subtitle mt-1">Rent Quantity</h5>
-                        <p class="card-text"> {{ $data['movie']->getRentQuantity() }}</p>
                         <h5 class="card-subtitle mt-1">Sell Quantity</h5>
                         <p class="card-text"> {{ $data['movie']->getSellQuantity() }}</p>
+                        <h5 class="card-subtitle mt-1">Sell Price</h5>
+                        <p class="card-text"> {{ $data['movie']->getPrice() }}$</p>
+                        <h5 class="card-subtitle mt-1">Rent Quantity</h5>
+                        <p class="card-text"> {{ $data['movie']->getRentQuantity() }}</p>
+                        <h5 class="card-subtitle mt-1">Rent Price</h5>
+                        <p class="card-text"> {{ $data['movie']->getPrice() * 0.2 }}$</p>
                         <!-- Movie Reviews-->
                         <hr>
                         <h3>Reviews</h3>
                         <ul class="list-group">
                             @foreach ($data['movie']->reviews as $review)
-                                <li class="list-group-item pb-3 pt-3">
-                                    <h5 class="card-title">Review by {{ $review->user->getName() }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"> {{ $review->getDate() }} </h6>
-                                    <div class="card-group card-text divider-custom-line">
-                                        @for ($i = 0; $i < round($review->getStars()); $i++)
-                                            <div class="divider-custom-icon"><i class="fas fa-star text-warning"></i></div>
-                                        @endfor
-                                        <p class="card-text pl-2"> {{ $review->getStars() }}/5</p>
-                                    </div>
-                                    <p class="card-text"> {{ $review->getOpinion() }}</p>
-                                </li>
+                                @if ($review->getIsVisible())
+                                    <li class="list-group-item pb-3 pt-3">
+                                        <h5 class="card-title">Review by {{ $review->user->getName() }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"> {{ $review->getDate() }} </h6>
+                                        <div class="card-group card-text divider-custom-line">
+                                            @for ($i = 0; $i < round($review->getStars()); $i++)
+                                                <div class="divider-custom-icon"><i class="fas fa-star text-warning"></i>
+                                                </div>
+                                            @endfor
+                                            <p class="card-text pl-2"> {{ $review->getStars() }}/5</p>
+                                        </div>
+                                        <p class="card-text"> {{ $review->getOpinion() }}</p>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                         <!-- Movie Buttons for Login Users-->

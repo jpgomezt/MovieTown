@@ -33,8 +33,12 @@ class MovieController extends Controller
 
     public function delete($id)
     {
-        $movie = Movie::findOrFail($id);
-        $movie->delete();
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $movie = Movie::findOrFail($id);
+                $movie->delete();
+            }
+        }
         return back();
     }
 
@@ -48,7 +52,6 @@ class MovieController extends Controller
             if ($user->getIsStaff()) {
                 return  view('admin.movie.show', ['data' => $data]);
             }
-            $data["watchlists"] = Auth::user()->watchlists;
         }
         return view('movie.show', ['data' => $data]);
     }
@@ -71,6 +74,7 @@ class MovieController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
+                Movie::validate($request);
                 $movie = Movie::find($request->input('movie_id'));
                 $movie->setTitle($request->input('title'));
                 $movie->setPlot($request->input('plot'));
@@ -81,12 +85,6 @@ class MovieController extends Controller
                 $storeInterface = app(ImageStorage::class);
                 $storeInterface->store($movie->getId(), $request);
                 $movie->save();
-                
-                $data = [];
-                $data["title"] =  "hola";
-                $data['movie'] = $movie;
-                $data["watchlists"] = Auth::user()->watchlists;
-
                 return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
             }
         }
