@@ -20,7 +20,7 @@ class WatchlistController extends Controller
                     ->find($id);
                 $data["title"] = $watchlist->getName();
                 $data["watchlist"] = $watchlist;
-                return view('watchlist.show', ['data' => $data]);
+                return view('admin.watchlist.show', ['data' => $data]);
             } else {
                 $watchlist = Watchlist::with('movies')
                     ->where('user_id', Auth::id())
@@ -58,13 +58,9 @@ class WatchlistController extends Controller
             $data = [];
             $data["title"] = "List Watchlists";
             if ($user->getIsStaff()) {
-                // ------------------Provisional ----------- //
-                //dd('Eres admin - Puedes ver todas las watchlist');
                 $users = User::with('watchlists')->where('is_staff', 0)->get();
                 $data["users"] = $users;
-                $data["watchlists"] = Watchlist::orderBy('id', 'DESC')->get();
                 return view('admin.watchlist.list', ['data' => $data]);
-                // -------------------------------------------------
             } else {
                 $data["watchlists"] = $user->watchlists;
                 return view('watchlist.list', ['data' => $data]);
@@ -82,7 +78,7 @@ class WatchlistController extends Controller
             if ($user->getIsStaff()) {
                 $watchlist_user = User::find($request->input('user_id'));
                 $watchlist_user->watchlists()->save($watchlist);
-                return redirect()->route('watchlist.list');
+                return redirect()->route('admin.watchlist.list');
             } else {
                 $user->watchlists()->save($watchlist);
                 return redirect()->route('watchlist.list');

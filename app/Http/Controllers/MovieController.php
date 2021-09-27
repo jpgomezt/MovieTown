@@ -12,10 +12,12 @@ class MovieController extends Controller
 
     public function create()
     {
-        if (Auth::check() && Auth::user()->getIsStaff()) {
-            $data = [];
-            $data["title"] = "Create Movie";
-            return view('movie.create', ['data' => $data]);
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $data = [];
+                $data["title"] = "Create Movie";
+                return view('admin.movie.create', ['data' => $data]);
+            }
         }
         return back();
     }
@@ -26,13 +28,17 @@ class MovieController extends Controller
         $movie = Movie::create($request->only(["title", "plot", "critics_score", "price", "rent_quantity", "sell_quantity"]));
         $storeInterface = app(ImageStorage::class);
         $storeInterface->store($movie->getId(), $request);
-        return redirect()->route('movie.show', ['id' => $movie->getId()]);
+        return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
     }
 
     public function delete($id)
     {
-        $movie = Movie::findOrFail($id);
-        $movie->delete();
+        if (Auth::check()) {
+            if (Auth::user()->getIsStaff()) {
+                $movie = Movie::findOrFail($id);
+                $movie->delete();
+            }
+        }
         return back();
     }
 
@@ -41,7 +47,11 @@ class MovieController extends Controller
         $data = [];
         $data["movie"] = Movie::with('reviews.user')->find($id);
         if (Auth::check()) {
-            $data["watchlists"] = Auth::user()->watchlists;
+            $user = Auth::user();
+            $data["watchlists"] = $user->watchlists;
+            if ($user->getIsStaff()) {
+                return  view('admin.movie.show', ['data' => $data]);
+            }
         }
         return view('movie.show', ['data' => $data]);
     }
@@ -64,6 +74,7 @@ class MovieController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
+                Movie::validate($request);
                 $movie = Movie::find($request->input('movie_id'));
                 $movie->setTitle($request->input('title'));
                 $movie->setPlot($request->input('plot'));
@@ -74,7 +85,7 @@ class MovieController extends Controller
                 $storeInterface = app(ImageStorage::class);
                 $storeInterface->store($movie->getId(), $request);
                 $movie->save();
-                return redirect()->route('movie.show', ['id' => $movie->getId()]);
+                return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
             }
         }
         return back();

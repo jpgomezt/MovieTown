@@ -18,7 +18,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <form method="POST" action="{{ route('watchlist.save') }}" method="post">
+                        <form method="POST" action="{{ route('admin.watchlist.save') }}" method="post">
                             @csrf
                             <div class="input-group mb-3">
                                 <input class="form-control" type="text" placeholder="Enter name" name="name"

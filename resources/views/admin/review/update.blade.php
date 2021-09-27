@@ -9,7 +9,8 @@
                 <div class="card">
 
                     <div class="card-header" style="text-align: center; font-size: 25px">{{ $data['title'] }}:
-                        <b>{{ $data['review']->movie->getTitle() }}</b></div>
+                        <b>{{ $data['review']->movie->getTitle() }}</b>
+                    </div>
                     <div class="card-body">
                         @if ($errors->any())
                             <ul id="errors">
@@ -19,7 +20,7 @@
                             </ul>
                         @endif
                         <form method="POST"
-                            action="{{ route('review.updateProcess', ['id' => $data['review']->getId()]) }}">
+                            action="{{ route('admin.review.updateProcess', ['id' => $data['review']->getId()]) }}">
                             @csrf
                             <style>
                                 input {
@@ -34,11 +35,10 @@
                                 style="height: 60px; width: 100%;" value="{{ $data['review']->getOpinion() }}" /><br>
                             <input type="number" step="0.1" placeholder="Number of stars" name="stars" min="1" max="5"
                                 value="{{ $data['review']->getStars() }}" /><br>
-                                <input type="text" placeholder="There is nothing here" name="nothing">
                             <label for="is_visible">Make the comment visible:</label>
                             <select name="is_visible" id=="is_visible">
-                                <option value="1" @if ($data["review"]->getIsVisible()) selected @endif>True</option>
-                                <option value="0" @if (!$data["review"]->getIsVisible()) selected @endif>False</option>
+                                <option value="1" @if ($data['review']->getIsVisible()) selected @endif>True</option>
+                                <option value="0" @if (!$data['review']->getIsVisible()) selected @endif>False</option>
                             </select>
                             <input type="hidden" name="movie_id" value="{{ $data['review']->movie->getId() }}" /><br>
                             <input type="submit" style="text-align: center" value="Update Review" />

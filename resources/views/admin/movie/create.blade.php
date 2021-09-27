@@ -16,7 +16,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <form method="POST" action="{{ route('movie.save') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.movie.save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="input-group mb-3">
                                 <input class="form-control" type="text" placeholder="Enter title" name="title"
@@ -31,8 +31,8 @@
                                     name="critics_score" value="{{ old('critics_score') }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="number" step="0.01" placeholder="Enter price" name="price"
-                                    value="{{ old('price') }}" />
+                                <input class="form-control" type="number" step="0.01" placeholder="Enter price"
+                                    name="price" value="{{ old('price') }}" />
                             </div>
                             <div class="input-group mb-3">
                                 <input class="form-control" type="number" placeholder="Enter rent quantity"
@@ -44,7 +44,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <label>Image:</label>
-                                <input class="form-control" type="file" name="movie_image" />
+                                <input class="form-control" type="file" name="movie_image" required/>
                             </div>
                             <input class="btn btn-success" type="submit" value="Create">
                         </form>

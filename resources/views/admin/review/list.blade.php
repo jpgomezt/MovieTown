@@ -17,7 +17,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{ route('review.show', $review->getId()) }}">
+                                <a href="{{ route('admin.review.show', $review->getId()) }}">
                                     {{ $review->getId() }}
                                     || Movie: {{ $review->movie->getTitle() }} - By: {{ $review->user->getName() }}
                                 </a>
