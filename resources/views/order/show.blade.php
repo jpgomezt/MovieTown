@@ -30,13 +30,7 @@
                             <div class="col-sm-2">
                             <form method="POST" action="{{ route('order.delete', ['id'=>$data['order']->getId()]) }}">
                                 @csrf 
-                                <input type="submit" class="btn btn-danger" value="Delete">
-                            </form>
-                            </div>
-                            <div class="col-sm-2">
-                            <form method="GET" action="{{ route('order.update', ['id'=>$data['order']->getId()]) }}">
-                                @csrf 
-                                <input type="submit" class="btn btn-info" value="Update">
+                                <input type="submit" class="btn btn-danger" value="Cancel">
                             </form>
                             </div>
                             <div class="col-sm-2">

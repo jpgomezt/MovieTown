@@ -18,9 +18,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('review.show', $review->getId()) }}"> 
-                            {{ $review->getId() }}
-                        
-                        || Movie: {{ $review->movie->getTitle() }} - By: {{ $review->user->getName() }} 
+                        Movie: {{ $review->movie->getTitle() }} - By: {{ $review->user->getName() }} 
                         </a>
                     </div>
 
@@ -29,7 +27,7 @@
                         <br>
                         Opinion: {{ $review->getOpinion() }}
                         <br>
-                        Is visible: @if ( $review->getIsVisible() == true ) Yes :) @else No :( @endif
+                        Is visible: @if ( $review->getIsVisible() == true ) Yes  @else No  @endif
                         <br>
                         Date of publication: {{ $review->getDate() }}
                     </div>

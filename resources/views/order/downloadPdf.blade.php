@@ -1,25 +1,10 @@
-@extends('layouts.app')
-
-@section('title', $data['title'])
-
-@section('content')
+<!DOCTYPE html>
+<head>
+</head>
+<body>
 <br>
 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">List of orders</h2>
 <br>
-<div class="row justify-content-center">
-    <div class="col-sm-2 text-center">
-    <form method="GET" action="{{ route('cart.show') }}">
-        @csrf 
-        <input type="submit" class="btn btn-danger" value="Create Order">
-    </form>
-    </div>
-    <div class="col-sm-2 text-center">
-        <form method="GET" action="{{ route('order.ordersPdf') }}">
-            @csrf 
-            <input type="submit" class="btn btn-success" value="Download Orders">
-        </form>
-    </div>
-</div>
 @if ( count($data['list']) == 0 )
     <br>
         <h4 class="page-section-body text-center">You don't have any orders in the moment</h4>
@@ -58,5 +43,4 @@
         </div>
     @endforeach
 @endif
-@endsection
-
+</body>
