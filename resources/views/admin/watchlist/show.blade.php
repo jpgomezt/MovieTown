@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    {{ $data['title'] }}
+    {{ $data['watchlist']->getName() }}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
             <!--<div class="card-header h1 text-center">{{ $data['watchlist']->getName() }}</div>-->
             <div class="card-body">
                 @if ($data['watchlist']->movies->count() === 0)
-                    <p class="card-text text-center">This watchlist do not contain any movie</p>
+                    <p class="card-text text-center">{{ __("watchlist.owner_no_movie") }}</p>
                 @else
 
                     <div class="row row-cols-3 row-cols-md-3 justify-content-center">
@@ -53,7 +53,7 @@
                 @endif
                 <div class="text-center">
                     <a class="btn btn-primary card-link mt-4" href="{{ route('admin.movie.list') }}" role="button">
-                        Add movies
+                        {{ __("watchlist.add_movies") }}
                     </a>
                 </div>
             </div>
