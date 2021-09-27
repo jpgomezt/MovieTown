@@ -123,10 +123,16 @@ class CartController extends Controller
                     $item->setOrderId($order->getId());
                     $item->setMovieId($movie->getId());
                     $item->setIsRented($product['rent']);
+                    if ($product['rent']) {
+                        $movie->setRentQuantity($movie->getRentQuantity() - $product['quantity']);
+                    } else {
+                        $movie->setSellQuantity($movie->getSellQuantity() - $product['quantity']);
+                    }
                     $item->setReturnDate(Carbon::now()->addWeek());
                     $item->setQuantity($product['quantity']);
                     $item->setSubtotal($product['itemTotal']);
                     $total += $product['itemTotal'];
+                    $movie->save();
                     $item->save();
                 }
                 $order->setTotal($total);
