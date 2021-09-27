@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Movie;
-use App\Models\Order;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -119,7 +118,7 @@ class DatabaseSeeder extends Seeder
 
         Review::create(
             [
-                'opinion' => 'I didn´t like the movie it was very scary and I dislike the protagonist',
+                'opinion' => "I didn't like the movie it was very scary and I dislike the protagonist",
                 'stars' => 2,
                 'is_visible' => false,
                 'date' => '2021-09-22',
@@ -131,51 +130,12 @@ class DatabaseSeeder extends Seeder
 
         Review::create(
             [
-                'opinion' => 'The movie was marvelous! I will say it´s the best in the world',
+                'opinion' => "The movie was marvelous! I will say it's the best in the world",
                 'stars' => 5,
                 'is_visible' => true,
                 'date' => '2021-09-22',
                 'user_id' => 3,
                 'movie_id' => 3,
-            ]
-        );
-
-        Order::create(
-            [
-                'address' => 'Calle 1 #2 - 53210',
-                'date' => '2021-09-22',
-                'payment_type' => '2345678876543',
-                'shipping_date' => '2021-09-22',
-                'shipping_cost' => 2456,
-                'total' => 10000,
-                'is_shipped' => true,
-                'user_id' => 1,
-            ]
-        );
-
-        Order::create(
-            [
-                'address' => 'Calle 21 sur #123 - 3',
-                'date' => '2021-09-22',
-                'payment_type' => '2345678876543',
-                'shipping_date' => '2021-09-22',
-                'shipping_cost' => 2456,
-                'total' => 10000,
-                'is_shipped' => true,
-                'user_id' => 2,
-            ]
-        );
-
-        Order::create(
-            [
-                'address' => 'Avenida 2 #33 - 2',
-                'date' => '2021-09-22',
-                'payment_type' => '23443426543',
-                'shipping_date' => '2021-09-24',
-                'shipping_cost' => 126,
-                'total' => 43320,
-                'is_shipped' => false,
-                'user_id' => 3,
             ]
         );
     }
