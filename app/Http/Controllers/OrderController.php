@@ -33,10 +33,11 @@ class OrderController extends Controller
         $data['title'] = 'Orders list';
         $user = Auth::user();
         if ($user->getIsStaff()) {
-            $data['list'] = Order::orderBy('id')->get();
+            $data['list'] = Order::with('user')->orderBy('id')->get();
             dd('Es admin! Todo lo puede ver!');
         } else {
-            $data['list'] = Order::orderBy('id')
+            $data['list'] = Order::with('user')
+                ->orderBy('id')
                 ->where('user_id', $user->getId())
                 ->get();
 
@@ -49,12 +50,9 @@ class OrderController extends Controller
     {
         if (Auth::check()) {
             $order = Order::find($id);
-
             $order->delete();
-
             return redirect()->route('order.list');
-        } else {
-            return redirect()->route('home.index');
         }
+        return redirect()->route('home.index');
     }
 }
