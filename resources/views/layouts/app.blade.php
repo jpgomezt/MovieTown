@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>@yield('title','Home Page')</title>
+    <title>@yield('title', __("layout.page_title") )</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('/img/faviconMovieTown.png') }}" />
     <!-- Font Awesome icons (free version)-->
@@ -24,7 +24,8 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="{{ route('home.index') }}">Movietown</a>
+            <a class="navbar-brand js-scroll-trigger"
+                href="{{ route('home.index') }}">{{ __('layout.brand_name') }}</a>
             <button
                 class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
                 type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -36,7 +37,8 @@
                 <ul class="navbar-nav ml-auto">
                     @guest
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                href="{{ route('movie.list') }}">Movies <i class="fas fa-ticket-alt"></i>
+                                href="{{ route('movie.list') }}">{{ __('layout.movies_link') }} <i
+                                    class="fas fa-ticket-alt"></i>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                 href="{{ route('login') }}">{{ __('Login') }} <i class="fas fa-sign-in-alt"></i></a>
                         </li>
@@ -47,17 +49,20 @@
                         @if (Auth::user()->getIsStaff())
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('admin.movie.list') }}">Movies <i class="fas fa-ticket-alt"></i>
+                                    href="{{ route('admin.movie.list') }}">{{ __('layout.movies_link') }} <i
+                                        class="fas fa-ticket-alt"></i>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('admin.review.list') }}">Reviews <i class="far fa-comment"></i></a>
+                                    href="{{ route('admin.review.list') }}">{{ __('layout.reviews_link') }} <i
+                                        class="far fa-comment"></i></a>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('order.list') }}">Orders <i class="fas fa-luggage-cart"></i></a></li>
+                                    href="{{ route('order.list') }}">{{ __('layout.orders_link') }} <i
+                                        class="fas fa-luggage-cart"></i></a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('admin.watchlist.list') }}">Watchlists <i
+                                    href="{{ route('admin.watchlist.list') }}">{{ __('layout.watchlists_link') }} <i
                                         class="fas fa-layer-group"></i></a>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1"><a
@@ -72,19 +77,23 @@
                         @else
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('movie.list') }}">Movies <i class="fas fa-ticket-alt"></i>
+                                    href="{{ route('movie.list') }}">{{ __('layout.movies_link') }} <i
+                                        class="fas fa-ticket-alt"></i>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('cart.show') }}">Cart <i class="fas fa-shopping-cart"></i>
+                                    href="{{ route('cart.show') }}">{{ __('layout.cart_link') }} <i
+                                        class="fas fa-shopping-cart"></i>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('review.list') }}">Reviews <i class="far fa-comment"></i></a></li>
+                                    href="{{ route('review.list') }}">{{ __('layout.reviews_link') }} <i
+                                        class="far fa-comment"></i></a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('order.list') }}">Orders <i class="fas fa-luggage-cart"></i></a></li>
+                                    href="{{ route('order.list') }}">{{ __('layout.orders_link') }} <i
+                                        class="fas fa-luggage-cart"></i></a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a
                                     class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                    href="{{ route('watchlist.list') }}">Watchlists <i
+                                    href="{{ route('watchlist.list') }}">{{ __('layout.watchlists_link') }} <i
                                         class="fas fa-layer-group"></i></a>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1"><a

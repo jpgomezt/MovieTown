@@ -18,7 +18,6 @@ class WatchlistController extends Controller
             if ($user->getIsStaff()) {
                 $watchlist = Watchlist::with('movies')
                     ->find($id);
-                $data["title"] = $watchlist->getName();
                 $data["watchlist"] = $watchlist;
                 return view('admin.watchlist.show', ['data' => $data]);
             } else {
@@ -26,7 +25,6 @@ class WatchlistController extends Controller
                     ->where('user_id', Auth::id())
                     ->find($id);
                 if ($watchlist !== null) {
-                    $data["title"] = $watchlist->getName();
                     $data["watchlist"] = $watchlist;
                     return view('watchlist.show', ['data' => $data]);
                 }
@@ -35,17 +33,16 @@ class WatchlistController extends Controller
         return redirect()->route('home.index');
     }
 
-    public function create(Request $request)
+    public function create()
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $data = [];
-            $data["title"] = "Create Watchlist";
             if ($user->getIsStaff()) {
+                $data = [];
                 $data["users"] = User::where('is_staff', 0)->get();
                 return view('admin.watchlist.create', ['data' => $data]);
             } else {
-                return view('watchlist.create', ['data' => $data]);
+                return view('watchlist.create');
             }
         }
         return redirect()->route('home.index');
@@ -56,7 +53,6 @@ class WatchlistController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $data = [];
-            $data["title"] = "List Watchlists";
             if ($user->getIsStaff()) {
                 $users = User::with('watchlists')->where('is_staff', 0)->get();
                 $data["users"] = $users;
