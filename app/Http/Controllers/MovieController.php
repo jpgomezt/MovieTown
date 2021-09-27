@@ -83,6 +83,7 @@ class MovieController extends Controller
                 $storeInterface = app(ImageStorage::class);
                 $storeInterface->store($movie->getId(), $request);
                 $movie->save();
+                
                 $data = [];
                 $data["title"] =  "hola";
                 $data['movie'] = $movie;
