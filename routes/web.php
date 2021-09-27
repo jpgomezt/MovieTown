@@ -67,6 +67,8 @@ Route::get('cart/show', [App\Http\Controllers\CartController::class, 'show'])->n
 Route::get('cart/empty', [App\Http\Controllers\CartController::class, 'empty'])->name("cart.empty");
 Route::post('cart/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name("cart.checkout");
 
+Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'home'])->name('admin.home');
+
 Route::get('admin/movie/list', [App\Http\Controllers\MovieController::class, 'list'])->name('admin.movie.list');
 Route::get('admin/movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name('admin.movie.show');
 Route::get('admin/movie/create', [App\Http\Controllers\MovieController::class, 'create'])->name('admin.movie.create');
