@@ -45,7 +45,7 @@
                             <div class="input-group mb-3">
                                 <label>Image:</label>
                                 <input class="form-control" type="file" name="movie_image"
-                                    value="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
+                                value="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
                             </div>
                             <div class="input-group mb-3">
                                 <img src="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />

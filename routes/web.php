@@ -35,20 +35,15 @@ Route::post('watchlist/addMovie', [App\Http\Controllers\WatchlistController::cla
 Route::get('watchlist/removeMovie', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
 Route::post('watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
 
-Route::get('movie/create', [App\Http\Controllers\MovieController::class, 'create'])->name("movie.create");
-Route::post('movie/save', [App\Http\Controllers\MovieController::class, 'save'])->name("movie.save");
 Route::get('movie/list', [App\Http\Controllers\MovieController::class, 'list'])->name("movie.list");
 Route::get('movie/show/{id}', [App\Http\Controllers\MovieController::class, 'show'])->name("movie.show");
-Route::post('movie/delete/{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("movie.delete");
 Route::post('movie/filter', [App\Http\Controllers\MovieController::class, 'filter'])->name("movie.filter");
-Route::get('movie/update/{id}', [App\Http\Controllers\MovieController::class, 'update'])->name("movie.update");
 
 Route::post('review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name("review.create");
 Route::post('review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("review.save");
 Route::get('review/list', [App\Http\Controllers\ReviewController::class, 'list'])->name("review.list");
 Route::get('review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("review.show");
 Route::post('review/delete/{id}', [App\Http\Controllers\ReviewController::class, 'delete'])->name("review.delete");
-Route::get('review/truncateReview', [App\Http\Controllers\ReviewController::class, 'truncateReview'])->name("review.truncateReview");
 Route::get('review/update/{id}', [App\Http\Controllers\ReviewController::class, 'update'])->name("review.update");
 Route::post('review/updateProcess/{id}', [App\Http\Controllers\ReviewController::class, 'updateProcess'])->name("review.updateProcess");
 
@@ -76,6 +71,7 @@ Route::post('admin/movie/filter', [App\Http\Controllers\MovieController::class, 
 Route::get('admin/movie/update/{id}', [App\Http\Controllers\MovieController::class, 'update'])->name('admin.movie.update');
 Route::post('admin/movie/saveUpdate', [App\Http\Controllers\MovieController::class, 'saveUpdate'])->name("admin.movie.saveUpdate");
 Route::post('admin/movie/save', [App\Http\Controllers\MovieController::class, 'save'])->name("admin.movie.save");
+Route::post('admin/movie/delete/{id}', [App\Http\Controllers\MovieController::class, 'delete'])->name("admin.movie.delete");
 
 Route::get('admin/watchlist/list', [App\Http\Controllers\WatchlistController::class, 'list'])->name('admin.watchlist.list');
 Route::get('admin/watchlist/create', [App\Http\Controllers\WatchlistController::class, 'create'])->name('admin.watchlist.create');

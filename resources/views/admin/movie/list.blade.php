@@ -85,7 +85,7 @@
                                         <div class="row text-center">
                                             <div class="col-sm-6">
                                                 <form method="POST"
-                                                    action="{{ route('movie.delete', ['id' => $movie->getid()]) }}">
+                                                    action="{{ route('admin.movie.delete', ['id' => $movie->getid()]) }}">
                                                     @csrf
                                                     <input type="submit" class="btn btn-danger" value="Delete">
                                                 </form>

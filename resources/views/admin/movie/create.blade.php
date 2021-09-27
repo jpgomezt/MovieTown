@@ -44,7 +44,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <label>Image:</label>
-                                <input class="form-control" type="file" name="movie_image" />
+                                <input class="form-control" type="file" name="movie_image" required/>
                             </div>
                             <input class="btn btn-success" type="submit" value="Create">
                         </form>

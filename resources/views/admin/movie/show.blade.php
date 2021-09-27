@@ -24,10 +24,14 @@
                             @endfor
                             <p class="card-text pl-2"> {{ $data['movie']->getCriticsScore() }}/5</p>
                         </div>
-                        <h5 class="card-subtitle mt-1">Rent Quantity</h5>
-                        <p class="card-text"> {{ $data['movie']->getRentQuantity() }}</p>
                         <h5 class="card-subtitle mt-1">Sell Quantity</h5>
                         <p class="card-text"> {{ $data['movie']->getSellQuantity() }}</p>
+                        <h5 class="card-subtitle mt-1">Sell Price</h5>
+                        <p class="card-text"> {{ $data['movie']->getPrice() }}$</p>
+                        <h5 class="card-subtitle mt-1">Rent Quantity</h5>
+                        <p class="card-text"> {{ $data['movie']->getRentQuantity() }}</p>
+                        <h5 class="card-subtitle mt-1">Rent Price</h5>
+                        <p class="card-text"> {{ $data['movie']->getPrice() * 0.2 }}$</p>
                         <!-- Movie Reviews-->
                         <hr>
                         <h3>Reviews</h3>
