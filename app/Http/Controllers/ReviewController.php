@@ -49,7 +49,7 @@ class ReviewController extends Controller
             $review = new Review($request->only(["opinion", "stars", "movie_id"]));
             $review->setDate(date("Y/m/d"));
             $user->reviews()->save($review);
-            if ($user->getIsStaff()){
+            if ($user->getIsStaff()) {
                 return redirect()->route('admin.movie.show', ['id' => $request->input('movie_id')]);
             }
             return redirect()->route('movie.show', ['id' => $request->input('movie_id')]);
@@ -82,7 +82,7 @@ class ReviewController extends Controller
             $review = Review::findOrFail($id);
             $movie_id = $review->getMovieId();
             $review->delete();
-            if (Auth::user()->getIsStaff()){
+            if (Auth::user()->getIsStaff()) {
                 return redirect()->route('admin.movie.show', ['id' => $movie_id]);
             }
             return redirect()->route('movie.show', ['id' => $movie_id]);
