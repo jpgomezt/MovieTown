@@ -16,8 +16,7 @@ class MovieController extends Controller
             if (Auth::user()->getIsStaff()) {
                 $data = [];
                 $data["title"] = "Create Movie";
-
-                return view('movie.create', ['data' => $data]);
+                return view('admin.movie.create', ['data' => $data]);
             }
         }
         return back();
@@ -30,9 +29,7 @@ class MovieController extends Controller
         $movie = Movie::create($request->only(["title", "plot", "critics_score", "price", "rent_quantity", "sell_quantity"]));
         $storeInterface = app(ImageStorage::class);
         $storeInterface->store($movie->getId(), $request);
-
-
-        return redirect()->route('movie.show', ['id' => $movie->getId()]);
+        return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
     }
 
     public function delete($id)
@@ -51,6 +48,11 @@ class MovieController extends Controller
         $data["movie"] = Movie::with('reviews.user')->find($id);
 
         if (Auth::check()) {
+            $user = Auth::user();
+            $data["watchlists"] = $user->watchlists;
+            if ($user->getIsStaff()){
+               return  view('admin.movie.show', ['data' => $data]);
+            }
             $data["watchlists"] = Auth::user()->watchlists;
         }
 
@@ -93,7 +95,7 @@ class MovieController extends Controller
                 $data['movie'] = $movie;
                 $data["watchlists"] = Auth::user()->watchlists;
 
-                return redirect()->route('movie.show', ['id' => $movie->getId()]);
+                return redirect()->route('admin.movie.show', ['id' => $movie->getId()]);
             }
         }
         return redirect()->route('movie.show');
@@ -110,8 +112,6 @@ class MovieController extends Controller
                 return view('admin.movie.list', ['data' => $data]);
             }
         }
-
-
         return view('movie.list', ['data' => $data]);
     }
 
