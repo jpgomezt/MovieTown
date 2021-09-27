@@ -162,7 +162,6 @@ class DatabaseSeeder extends Seeder
                 "address" => "Calle 92 sur #70 - 100",
                 "email" => "jpgomez@gmail.com",
                 "password" => Hash::make("12345"),
-                "is_staff" => "1",
             ]
         );
 
@@ -174,6 +173,17 @@ class DatabaseSeeder extends Seeder
                 "email" => "salzatec1@gmail.com",
                 "password" => Hash::make("12345"),
                 "has_rented_movies" => "1",
+            ]
+        );
+
+        User::create(
+            [
+                "name" => "Admin",
+                "username" => "admin",
+                "address" => "Cra 29 AA # 36 Sur - 151",
+                "email" => "admin@movietown.com",
+                "password" => Hash::make("admin12345"),
+                "is_staff" => "1",
             ]
         );
 
