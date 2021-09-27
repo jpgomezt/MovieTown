@@ -108,7 +108,7 @@ class ReviewController extends Controller
             return redirect()->route('home.index');
         }
     }
-    public function updateProcess(Request $request, $id)
+    public function saveUpdate(Request $request, $id)
     {
         if (Auth::check()) {
             Review::validate($request);
