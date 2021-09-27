@@ -27,19 +27,19 @@
                                     value="{{ old('plot') }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter critics score"
+                                <input class="form-control" type="number" step="0.1" placeholder="Enter critics score"
                                     name="critics_score" value="{{ old('critics_score') }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter price" name="price"
+                                <input class="form-control" type="number" step="0.01" placeholder="Enter price" name="price"
                                     value="{{ old('price') }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter rent quantity"
+                                <input class="form-control" type="number" placeholder="Enter rent quantity"
                                     name="rent_quantity" value="{{ old('rent_quantity') }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter sell quantity"
+                                <input class="form-control" type="number" placeholder="Enter sell quantity"
                                     name="sell_quantity" value="{{ old('sell_quantity') }}" />
                             </div>
                             <div class="input-group mb-3">

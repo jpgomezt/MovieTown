@@ -27,6 +27,7 @@ class Movie extends Model
             "price" => "required|numeric|gt:0",
             "rent_quantity" => "required|numeric|gte:0",
             "sell_quantity" => "required|numeric|gte:0",
+            "movie_image" => "image",
         ]);
     }
 

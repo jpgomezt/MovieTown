@@ -8,7 +8,7 @@
             <div class="card-header text-center h1">Cart</div>
             <div class="card-body">
                 @if ($data['empty'])
-                    <p class="card-text text-center">You currently do not have any producst - Go on and add them !!!.</p>
+                    <p class="card-text text-center">You currently do not have any products - Go on and add them !!!.</p>
                 @else
                     @foreach ($data['movies'] as $movie)
                         <div class="col mb-3" style="max-width: 540px;">
@@ -40,8 +40,8 @@
                         <hr>
                     @endforeach
                     <p class="card-text">Subtotal: {{ $data['subtotal'] }}$</p>
-                    <p class="card-text">ShippingCost: ShippingCost$</p>
-                    <p class="card-text">Total: {{ $data['subtotal'] }}$ + ShippingCost$</p>
+                    <p class="card-text">ShippingCost: 5.30$</p>
+                    <p class="card-text">Total: {{ $data['subtotal'] + 5.30 }}$</p>
                     <a class="btn btn-danger mt-2" href="{{ route('cart.empty') }}">Empty cart</a>
                     <div class="col-md-8 mt-2 pl-0">
                         <div class="card">
