@@ -20,7 +20,7 @@
                             </ul>
                         @endif
                         <form method="POST"
-                            action="{{ route('review.updateProcess', ['id' => $data['review']->getId()]) }}">
+                            action="{{ route('admin.review.updateProcess', ['id' => $data['review']->getId()]) }}">
                             @csrf
                             <style>
                                 input {

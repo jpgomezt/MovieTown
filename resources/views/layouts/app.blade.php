@@ -47,7 +47,7 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                 href="{{ route('cart.show') }}">Cart <i class="fas fa-shopping-cart"></i>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                href="{{ route('review.list') }}">Reviews <i class="far fa-comment"></i></a></li>
+                                href="{{ route('admin.review.list') }}">Reviews <i class="far fa-comment"></i></a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                 href="{{ route('order.list') }}">Orders <i class="fas fa-luggage-cart"></i></a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
