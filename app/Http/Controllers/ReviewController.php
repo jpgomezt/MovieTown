@@ -19,31 +19,23 @@ class ReviewController extends Controller
             $movie = Movie::find($id);
             $data['movie'] = $movie;
             return view('review.create', ["data" => $data]);
-        } else {
-            return redirect()->route('home.index');
         }
+        return redirect()->route('home.index');
     }
 
     public function show($id)
     {
         if (Auth::check()) {
             $data = [];
-            $user = Auth::user();
-            $review = $user->reviews()
-                ->where('id', $id)
-                ->first();
-            if ($review !== null) {
-                $review = Review::findOrFail($id);
-                $data["title"] = 'Review ' . $id;
-                $data["review"] = $review;
-
-                return view('review.show', ["data" => $data]);
-            } elseif ($user->getIsStaff()) {
-                $review = Review::find($id);
-                $data = [];
-                $data["title"] = 'Review ' . $id;
-                $data["review"] = $review;
+            $review = Review::with('movie')
+                ->with('user')
+                ->find($id);
+            $data["title"] = 'Review ' . $id;
+            $data["review"] = $review;
+            if (Auth::user()->getIsStaff()) {
                 return view('admin.review.show', ["data" => $data]);
+            } else {
+                return view('review.show', ["data" => $data]);
             }
         }
         return redirect()->route('home.index');
@@ -58,9 +50,8 @@ class ReviewController extends Controller
             $review->setDate(date("Y/m/d"));
             $user->reviews()->save($review);
             return redirect()->route('movie.show', ['id' => $request->input('movie_id')]);
-        } else {
-            return redirect()->route('home.index');
         }
+        return redirect()->route('home.index');
     }
 
     public function list()
@@ -69,10 +60,12 @@ class ReviewController extends Controller
         $data['title'] = "List of Reviews";
         $user = Auth::user();
         if ($user->getIsStaff()) {
-            $data['list'] = Review::orderBy('id')->get();
+            $data['list'] = Review::with('movie')->with('user')->orderBy('id')->get();
             return view('admin.review.list', ["data" => $data]);
         } else {
             $data['list'] = Review::orderBy('id')
+                ->with('movie')
+                ->with('user')
                 ->where('user_id', $user->getId())
                 ->get();
             return view('review.list', ["data" => $data]);
@@ -87,33 +80,25 @@ class ReviewController extends Controller
             $movie_id = $review->getMovieId();
             $review->delete();
             return redirect()->route('movie.show', ['id' => $movie_id]);
-        } else {
-            return redirect()->route('home.index');
         }
+        return redirect()->route('home.index');
     }
     public function update($id)
     {
         if (Auth::check()) {
             $data = [];
             $user = Auth::user();
+            $review = Review::with('movie')->find($id);
             if ($user->getIsStaff()) {
-                $review = Review::find($id);
                 $data = [];
                 $data["title"] = 'Review ' . $id;
                 $data["review"] = $review;
                 return view('admin.review.update', ["data" => $data]);
             } else {
-                $review = $user->reviews
-                    ->where('id', $id)
-                    ->first();
-                if ($review !== null) {
-                    $data["title"] = "Update review";
-                    $data['review'] = Review::findOrFail($id);
-                    return view('review.update', ["data" => $data]);
-                }
-                return back();
+                $data["title"] = "Update review";
+                $data['review'] = $review;
+                return view('review.update', ["data" => $data]);
             }
-        } else {
             return redirect()->route('home.index');
         }
     }
@@ -132,8 +117,7 @@ class ReviewController extends Controller
             }
             $review->save();
             return redirect()->route('movie.show', ['id' => $request->input('movie_id')]);
-        } else {
-            return redirect()->route('home.index');
         }
+        return redirect()->route('home.index');
     }
 }
