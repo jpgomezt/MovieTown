@@ -42,7 +42,6 @@ class CartController extends Controller
             $request->session()->put('products', $products);
         }
         return back();
-        return redirect()->route('home.index');
     }
 
     public function show(Request $request)
@@ -69,7 +68,7 @@ class CartController extends Controller
 
             return view('cart.show', ['data' => $data]);
         }
-        return redirect()->route('home.index');
+        return back();
     }
 
     public function empty(Request $request)
@@ -78,7 +77,7 @@ class CartController extends Controller
             $request->session()->forget('products');
             return back();
         }
-        return redirect()->route('home.index');
+        return back();
     }
 
     public function checkout(Request $request)
@@ -113,10 +112,8 @@ class CartController extends Controller
                 $order->save();
                 $request->session()->forget('products');
                 return redirect()->route("home.index");
-            } else {
-                return back();
             }
         }
-        return redirect()->route('home.index');
+        return back();
     }
 }
