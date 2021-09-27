@@ -52,7 +52,7 @@ class CartController extends Controller
 
             $products = $request->session()->get("products");
             if ($products) {
-                $data["movies"] = Movie::find(array_keys($products));
+                $movies = Movie::find(array_keys($products));
                 $data["empty"] = false;
             } else {
                 $data["empty"] = true;
@@ -60,6 +60,27 @@ class CartController extends Controller
             }
             $data["products"] = $products;
 
+            foreach ($movies as $key => $movie) {
+                if ($products[$movie->getId()]['rent']) {
+                    if ($products[$movie->getId()]['quantity'] > $movie->getRentQuantity()) {
+                        unset($movies[$key]);
+                        unset($products[$movie->getId()]);
+                    }
+                } else {
+                    if ($products[$movie->getId()]['quantity'] > $movie->getSellQuantity()) {
+                        unset($movies[$key]);
+                        unset($products[$movie->getId()]);
+                    }
+                }
+            }
+
+            session()->put('products', $products);
+            if (!$products) {
+                $data["empty"] = true;
+                return view('cart.show', ['data' => $data]);
+            }
+
+            $data["movies"] = $movies;
             $subtotal = 0;
             foreach ($products as $product) {
                 $subtotal += $product['itemTotal'];
