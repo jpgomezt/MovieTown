@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Update movie</div>
+                    <div class="card-header">{{ __("movie.update_movie") }}</div>
                     <div class="card-body">
                         @if ($errors->any())
                             <ul id="errors">
@@ -43,7 +43,7 @@
                                     name="sell_quantity" value="{{ $data['movie']->getSellQuantity() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <label>Image:</label>
+                                <label>{{ __("movie.image") }}</label>
                                 <input class="form-control" type="file" name="movie_image"
                                 value="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
                             </div>
@@ -51,7 +51,7 @@
                                 <img src="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
                             </div>
                             <input type="hidden" name="movie_id" value="{{ $data['movie']->getId() }}">
-                            <input class="btn btn-success" type="submit" value="Update">
+                            <input class="btn btn-success" type="submit" value="{{ __("movie.update") }}">
                         </form>
                     </div>
                 </div>
