@@ -63,7 +63,8 @@
                                 <form method="POST" action="{{ route('cart.checkout') }}">
                                     @csrf
                                     <div class="input-group mb-3">
-                                        <input class="form-control" type="text" placeholder="{{ __('cart.address_form') }}" name="address"
+                                        <input class="form-control" type="text"
+                                            placeholder="{{ __('cart.address_form') }}" name="address"
                                             value="{{ old('address') }}" />
                                     </div>
                                     <div class="input-group mb-3">
