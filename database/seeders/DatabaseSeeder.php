@@ -12,6 +12,7 @@ namespace Database\Seeders;
 use App\Models\Movie;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\Watchlist;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -199,7 +200,7 @@ class DatabaseSeeder extends Seeder
                 "opinion" => "It was a good movie, but i did not understand the end credits",
                 "stars" => 4,
                 "is_visible" => true,
-                "date" => "2021-09-22",
+                "date" => "2021-09-23",
                 "user_id" => 1,
                 "movie_id" => 1,
             ]
@@ -226,6 +227,44 @@ class DatabaseSeeder extends Seeder
                 "date" => "2021-09-22",
                 "user_id" => 3,
                 "movie_id" => 3,
+            ]
+        );
+
+        Review::create(
+            [
+                "opinion" => "Can't get more bored. No action at all and the acting wasn't even good",
+                "stars" => 1,
+                "is_visible" => true,
+                "date" => "2021-09-24",
+                "user_id" => 3,
+                "movie_id" => 8,
+            ]
+        );
+
+        Review::create(
+            [
+                "opinion" => "The best movie of the whole saga. Honestly Harry was great in this movie.",
+                "stars" => 4,
+                "is_visible" => true,
+                "date" => "2021-09-26",
+                "user_id" => 2,
+                "movie_id" => 8,
+            ]
+        );
+
+        Watchlist::create(
+            [
+                "name" => "Harry Potters favs",
+                "description" => "The most epic harry potter movies, definitely gonna rent them later",
+                "user_id" => 1,
+            ]
+        );
+
+        Watchlist::create(
+            [
+                "name" => "Epic lord of the rings saga",
+                "description" => "Remember to add the movies to this watchlist when the site update",
+                "user_id" => 3,
             ]
         );
     }
