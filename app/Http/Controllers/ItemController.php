@@ -15,7 +15,6 @@ class ItemController extends Controller
     {
         if (Auth::check()) {
             $data = [];
-            $data["title"] = "List of items";
             $data["order"] = Order::with('items.movie')->find($id);
             if (Auth::user()->getIsStaff()) {
                 return view('admin.item.list', ['data' => $data]);
