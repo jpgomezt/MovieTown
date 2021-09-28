@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Santigo Alzate
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
