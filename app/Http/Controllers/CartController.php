@@ -144,7 +144,7 @@ class CartController extends Controller
                 $order->setTotal($total);
                 $order->save();
                 $request->session()->forget('products');
-                return redirect()->route("home.index");
+                return redirect()->route('order.show', ['id' => $order->getId()]);
             }
         }
         return back();
