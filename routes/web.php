@@ -26,7 +26,6 @@ Route::get('watchlist/show/{id}', [App\Http\Controllers\WatchlistController::cla
 Route::post('watchlist/save', [App\Http\Controllers\WatchlistController::class, 'save'])->name('watchlist.save');
 Route::post('watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::class, 'delete'])->name('watchlist.delete');
 Route::post('watchlist/addMovie', [App\Http\Controllers\WatchlistController::class, 'addMovie'])->name('watchlist.addMovie');
-Route::get('watchlist/removeMovie', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
 Route::post('watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('watchlist.removeMovie');
 
 Route::get('movie/list', [App\Http\Controllers\MovieController::class, 'list'])->name("movie.list");
@@ -70,6 +69,7 @@ Route::get('admin/watchlist/create', [App\Http\Controllers\WatchlistController::
 Route::get('admin/watchlist/show/{id}', [App\Http\Controllers\WatchlistController::class, 'show'])->name('admin.watchlist.show');
 Route::post('admin/watchlist/save', [App\Http\Controllers\WatchlistController::class, 'save'])->name('admin.watchlist.save');
 Route::post('admin/watchlist/delete/{id}', [App\Http\Controllers\WatchlistController::class, 'delete'])->name('admin.watchlist.delete');
+Route::post('admin/watchlist/removeMovie/{id}', [App\Http\Controllers\WatchlistController::class, 'removeMovie'])->name('admin.watchlist.removeMovie');
 
 Route::post('admin/review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name('admin.review.create');
 Route::get('admin/review/list', [App\Http\Controllers\ReviewController::class, 'list'])->name('admin.review.list');
