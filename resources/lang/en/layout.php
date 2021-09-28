@@ -21,4 +21,16 @@ return [
     'orders_link' => 'Orders',
     'watchlists_link' => 'Watchlists',
 
+    'location_title' => 'Location',
+    'location_address' => 'Carrera 49, Cl. 7 Sur #50',
+    'location_city' => 'Medellín',
+    'location_state' => 'Antioquia',
+    'location_country' => 'Colombia',
+
+    'navbar_responsive_title' => 'Menu',
+
+    'footer_social_title' => 'Around the Web',
+    'footer_contact_title' => 'Contact Us:',
+    'footer_contact_mail' => 'info@movietown.com',
+    'footer_contact_phone' => '(57)(4)26676464',
 ];
