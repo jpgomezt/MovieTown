@@ -48,7 +48,7 @@
                                 value="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <img src="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
+                                <img class="img-thumbnail w-50" src="{{ URL::asset('storage/' . $data['movie']->getId() . '.png') }}" />
                             </div>
                             <input type="hidden" name="movie_id" value="{{ $data['movie']->getId() }}">
                             <input class="btn btn-success" type="submit" value="{{ __("movie.update") }}">
