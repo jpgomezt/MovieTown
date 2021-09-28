@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', $data['title'])
+@section('title', __("item.order_items"))
 
 @section('content')
     <div class="container mt-4 mb-4">
         <div class="card">
             <div class="card-header text-center h1">
-                <h1>Items</h1>
+                <h1>{{ __("item.items") }}</h1>
             </div>
             <div class="card-body">
                 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -18,12 +18,12 @@
                                     class="card-img-top text-center img-thumbnail">
                                 <div class="card-body d-flex flex-column">
                                     @if ($item->getIsRented())
-                                        <h6 class="card-subtitle mb-2 text-muted">Renting</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ __("item.renting") }}</h6>
                                     @else
-                                        <h6 class="card-subtitle mb-2 text-muted">Buying</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ __("item.buying") }}</h6>
                                     @endif
-                                    <p class="card-text mb-2">Amount: {{ $item->getQuantity() }}</p>
-                                    <p class="card-text">Item Total:
+                                    <p class="card-text mb-2">{{ __("item.amount") }}: {{ $item->getQuantity() }}</p>
+                                    <p class="card-text">{{ __("item.item_total") }}:
                                         {{ $item->getSubtotal() }}$
                                     </p>
                                 </div>
