@@ -77,4 +77,4 @@ Route::post('admin/review/save', [App\Http\Controllers\ReviewController::class, 
 Route::get('admin/review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("admin.review.show");
 Route::post('admin/review/delete/{id}', [App\Http\Controllers\ReviewController::class, 'delete'])->name("admin.review.delete");
 Route::get('admin/review/update/{id}', [App\Http\Controllers\ReviewController::class, 'update'])->name("admin.review.update");
-Route::post('admin/review/updateProcess/{id}', [App\Http\Controllers\ReviewController::class, 'updateProcess'])->name("admin.review.updateProcess");
+Route::post('admin/review/saveUpdate/{id}', [App\Http\Controllers\ReviewController::class, 'saveUpdate'])->name("admin.review.saveUpdate");

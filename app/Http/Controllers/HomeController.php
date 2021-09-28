@@ -9,22 +9,25 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $data = [];
-        $recommended = MovieController::findRelated($request);
-        $data["recommended_movies"] = $recommended;
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
                 return redirect()->route('admin.home');
             }
         }
+        $data = [];
+        $recommended = MovieController::findRelated($request);
+        $data["recommended_movies"] = $recommended;
         return view('home.index', ['data' => $data]);
     }
 
-    public function home()
+    public function home(Request $request)
     {
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
-                return view('home.index');
+                $data = [];
+                $recommended = MovieController::findRelated($request);
+                $data["recommended_movies"] = $recommended;
+                return view('home.index', ['data' => $data]);
             }
         }
         return redirect()->route('home.index');

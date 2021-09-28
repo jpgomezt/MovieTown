@@ -4,10 +4,10 @@
 
 @section('content')
     <br>
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">List of reviews</h2>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">{{ __('review.list_of_reviews') }}</h2>
     @if (count($data['list']) == 0)
         <br>
-        <h4 class="page-section-body text-center">You don't have any reviews in the moment</h4>
+        <h4 class="page-section-body text-center">{{ __('review.there_are_no_reviews') }}</h4>
         <br>
     @else
         @foreach ($data['list'] as $review)
@@ -19,18 +19,19 @@
                             <div class="card-header">
                                 <a href="{{ route('admin.review.show', $review->getId()) }}">
                                     {{ $review->getId() }}
-                                    || Movie: {{ $review->movie->getTitle() }} - By: {{ $review->user->getName() }}
+                                    || {{ __('review.movie') }}: {{ $review->movie->getTitle() }} -
+                                    {{ __('review.by') }}: {{ $review->user->getName() }}
                                 </a>
                             </div>
 
                             <div class="card-body">
-                                Stars: {{ $review->getStars() }}
+                                {{ __('review.stars') }}: {{ $review->getStars() }}
                                 <br>
-                                Opinion: {{ $review->getOpinion() }}
+                                {{ __('review.opinion') }}: {{ $review->getOpinion() }}
                                 <br>
-                                Is visible: @if ($review->getIsVisible() == true) Yes :) @else No :( @endif
+                                {{ __('review.is_visible') }}: @if ($review->getIsVisible() == true) {{ __('review.yes') }} @else {{ __('review.no') }} @endif
                                 <br>
-                                Date of publication: {{ $review->getDate() }}
+                                {{ __('review.publish_date') }}: {{ $review->getDate() }}
                             </div>
                         </div>
                     </div>
