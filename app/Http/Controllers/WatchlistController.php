@@ -118,7 +118,7 @@ class WatchlistController extends Controller
 
                 if ($watchlist !== null) {
                     $watchlistHasMovie = $watchlist->movies->where('id', $request->input('movie_id'))->first() ? true : false;
-                    if (!$watchlistHasMovie) {
+                    if ($watchlistHasMovie === false) {
                         $movie = Movie::findOrFail($request->input('movie_id'));
                         $watchlist->movies()->attach($movie);
                     }
