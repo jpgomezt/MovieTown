@@ -28,15 +28,14 @@
                         
                         <div class="row">
                             <div class="col-sm-2">
-                            @if ($data['time'])
-                            <form method="POST" action="{{ route('order.delete', ['id'=>$data['order']->getId()]) }}">
+                            
+                            <form method="POST" action="{{ route('admin.order.delete', ['id'=>$data['order']->getId()]) }}">
                                 @csrf 
                                 <input type="submit" class="btn btn-danger" value="Cancel">
                             </form>
-                            @endif
                             </div>
                             <div class="col-sm-2">
-                                <form method="GET" action="{{ route('item.list', ['id'=>$data['order']->getId()]) }}">
+                                <form method="GET" action="{{ route('admin.item.list', ['id'=>$data['order']->getId()]) }}">
                                     @csrf 
                                     <input type="submit" class="btn btn-success" value="Items">
                                 </form>
