@@ -15,33 +15,39 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             $movie = Movie::find($request->input('movie_id'));
-
-            $rent = false;
-            $itemTotalIndex = 1;
-            if ($request->input('rent') == 'on') {
-                $rent = true;
-                $itemTotalIndex = 0.2;
-            }
-
-            if ($rent) {
-                if ($movie->getRentQuantity() < $request->input('quantity')) {
-                    return back();
-                }
-            } else {
-                if ($movie->getSellQuantity() < $request->input('quantity')) {
-                    return back();
-                }
-            }
-
             $products = $request->session()->get("products");
-            $products[$movie->getId()] = array(
-                'quantity' => $request->input('quantity'),
-                'rent' => $rent,
-                'itemTotal' => $movie->getPrice() * $itemTotalIndex * $request->input('quantity'),
-            );
-            $request->session()->put('products', $products);
+            if ($products && array_key_exists($movie->getId(), $products)) {
+                $message = 'cart_item_exist';
+            } else {
+                $rent = false;
+                $itemTotalIndex = 1;
+                if ($request->input('rent') == 'on') {
+                    $rent = true;
+                    $itemTotalIndex = 0.2;
+                }
+
+                if ($rent) {
+                    if ($movie->getRentQuantity() < $request->input('quantity')) {
+                        $message = 'cart_item_quantity_error';
+                        return back()->with('message', $message);
+                    }
+                } else {
+                    if ($movie->getSellQuantity() < $request->input('quantity')) {
+                        $message = 'cart_item_quantity_error';
+                        return back()->with('message', $message);
+                    }
+                }
+
+                $products[$movie->getId()] = array(
+                    'quantity' => $request->input('quantity'),
+                    'rent' => $rent,
+                    'itemTotal' => $movie->getPrice() * $itemTotalIndex * $request->input('quantity'),
+                );
+                $request->session()->put('products', $products);
+                $message = 'cart_item_added';
+            }
         }
-        return back();
+        return back()->with('message', $message);
     }
 
     public function show(Request $request)
