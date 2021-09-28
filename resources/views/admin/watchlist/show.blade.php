@@ -15,7 +15,7 @@
             <!--<div class="card-header h1 text-center">{{ $data['watchlist']->getName() }}</div>-->
             <div class="card-body">
                 @if ($data['watchlist']->movies->count() === 0)
-                    <p class="card-text text-center">{{ __("watchlist.owner_no_movie") }}</p>
+                    <p class="card-text text-center">{{ __('watchlist.owner_no_movie') }}</p>
                 @else
 
                     <div class="row row-cols-3 row-cols-md-3 justify-content-center">
@@ -31,7 +31,13 @@
                                             <a
                                                 href="{{ route('movie.show', ['id' => $movie->getId()]) }}">{{ $movie->getTitle() }}</a>
                                         </h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">{{ $movie->getPlot() }}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            @if (strlen($movie->getPlot()) > 70)
+                                                {{ substr($movie->getPlot(), 0, 70) }}...
+                                            @else
+                                                {{ $movie->getPlot() }}
+                                            @endif
+                                        </h6>
                                         <div class="mt-auto">
                                             <form
                                                 action="{{ route('admin.watchlist.removeMovie', ['id' => $movie->getId()]) }} "
@@ -53,7 +59,7 @@
                 @endif
                 <div class="text-center">
                     <a class="btn btn-primary card-link mt-4" href="{{ route('admin.movie.list') }}" role="button">
-                        {{ __("watchlist.add_movies") }}
+                        {{ __('watchlist.add_movies') }}
                     </a>
                 </div>
             </div>
