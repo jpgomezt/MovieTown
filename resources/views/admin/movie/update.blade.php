@@ -19,27 +19,27 @@
                         <form method="POST" action="{{ route('admin.movie.saveUpdate') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter title" name="title"
+                                <input class="form-control" type="text" placeholder="{{ __('movie.enter_title') }}" name="title"
                                     value="{{ $data['movie']->getTitle() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter plot" name="plot"
+                                <input class="form-control" type="text" placeholder="{{ __('movie.enter_plot') }}" name="plot"
                                     value="{{ $data['movie']->getPlot() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="number" step="0.1" placeholder="Enter critics score"
+                                <input class="form-control" type="number" step="0.1" placeholder="{{ __('movie.enter_critics_score') }}"
                                     name="critics_score" value="{{ $data['movie']->getCriticsScore() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="number" step="0.01" placeholder="Enter price"
+                                <input class="form-control" type="number" step="0.01" placeholder="{{ __('movie.enter_price') }}"
                                     name="price" value="{{ $data['movie']->getPrice() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="number" placeholder="Enter rent quantity"
+                                <input class="form-control" type="number" placeholder="{{ __('movie.enter_rent_quantity') }}"
                                     name="rent_quantity" value="{{ $data['movie']->getRentQuantity() }}" />
                             </div>
                             <div class="input-group mb-3">
-                                <input class="form-control" type="number" placeholder="Enter sell quantity"
+                                <input class="form-control" type="number" placeholder="{{ __('movie.enter_sell_quantity') }}"
                                     name="sell_quantity" value="{{ $data['movie']->getSellQuantity() }}" />
                             </div>
                             <div class="input-group mb-3">
