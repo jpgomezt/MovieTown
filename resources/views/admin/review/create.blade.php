@@ -19,7 +19,7 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ route('review.save') }}">
+                        <form method="POST" action="{{ route('admin.review.save') }}">
                             @csrf
                             <style>
                                 input {

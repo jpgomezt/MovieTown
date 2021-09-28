@@ -73,7 +73,7 @@ Route::post('admin/watchlist/delete/{id}', [App\Http\Controllers\WatchlistContro
 
 Route::post('admin/review/create/{id}', [App\Http\Controllers\ReviewController::class, 'create'])->name('admin.review.create');
 Route::get('admin/review/list', [App\Http\Controllers\ReviewController::class, 'list'])->name('admin.review.list');
-Route::post('admin/review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("adminreview.save");
+Route::post('admin/review/save', [App\Http\Controllers\ReviewController::class, 'save'])->name("admin.review.save");
 Route::get('admin/review/show/{id}', [App\Http\Controllers\ReviewController::class, 'show'])->name("admin.review.show");
 Route::post('admin/review/delete/{id}', [App\Http\Controllers\ReviewController::class, 'delete'])->name("admin.review.delete");
 Route::get('admin/review/update/{id}', [App\Http\Controllers\ReviewController::class, 'update'])->name("admin.review.update");
