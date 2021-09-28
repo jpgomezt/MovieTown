@@ -134,7 +134,6 @@ class WatchlistController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->getIsStaff() === 1) {
-                //dd('Eres admin');
                 $watchlist = Watchlist::findOrFail($request->input('watchlist_id'));
                 $movie = Movie::findOrFail($id);
                 $watchlist->movies()->detach($movie);

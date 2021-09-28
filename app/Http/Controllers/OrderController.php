@@ -101,7 +101,6 @@ class OrderController extends Controller
 
         $pdf = PDF::loadView('order.downloadPdf', ["data" => $data]);
 
-        // download pdf file
         return $pdf->download('Orders.pdf');
     }
 }
