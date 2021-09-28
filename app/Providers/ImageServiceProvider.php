@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Juan Pablo Gómez
+ */
+
 namespace App\Providers;
 
 use App\Interfaces\ImageStorage;

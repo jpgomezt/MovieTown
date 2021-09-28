@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Juan Pablo Gómez
+ */
+
 namespace App\Interfaces;
 
 use Illuminate\Http\Request;

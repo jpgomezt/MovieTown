@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @author Juan Pablo Gómez
+ *
+ * functions saveUpdate and update
+ * @author Santiago Alzate
+ */
+
 namespace App\Http\Controllers;
 
 use App\Interfaces\ImageStorage;

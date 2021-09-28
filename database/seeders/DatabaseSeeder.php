@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @author Juan Pablo Gómez
+ * @author Sebastian Urrego
+ * @author Santiago Alzate
+ */
+
+
 namespace Database\Seeders;
 
 use App\Models\Movie;
