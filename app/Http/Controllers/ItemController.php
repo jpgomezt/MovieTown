@@ -17,7 +17,11 @@ class ItemController extends Controller
             $data = [];
             $data["title"] = "List of items";
             $data["order"] = Order::with('items.movie')->find($id);
-            return view('item.list', ['data' => $data]);
+            if (Auth::user()->getIsStaff()) {
+                return view('admin.item.list', ['data' => $data]);
+            } else {
+                return view('item.list', ['data' => $data]);
+            }
         }
         return back();
     }
