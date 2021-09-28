@@ -108,7 +108,6 @@ class WatchlistController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->getIsStaff()) {
-                //dd('Eres admin');
                 $watchlist = Watchlist::findOrFail($request->input('watchlist_id'));
                 $movie = Movie::findOrFail($request->input('movie_id'));
                 $watchlist->movies()->attach($movie);
@@ -118,8 +117,11 @@ class WatchlistController extends Controller
                     ->find($request->input('watchlist_id'));
 
                 if ($watchlist !== null) {
-                    $movie = Movie::findOrFail($request->input('movie_id'));
-                    $watchlist->movies()->attach($movie);
+                    $watchlistHasMovie = $watchlist->movies->where('id', $request->input('movie_id'))->first() ? true : false;
+                    if (!$watchlistHasMovie) {
+                        $movie = Movie::findOrFail($request->input('movie_id'));
+                        $watchlist->movies()->attach($movie);
+                    }
                     return redirect()->route('watchlist.show', ["id" => $request->input('watchlist_id')]);
                 }
             }
