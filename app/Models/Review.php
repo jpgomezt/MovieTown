@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Sebastián Urrego García
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

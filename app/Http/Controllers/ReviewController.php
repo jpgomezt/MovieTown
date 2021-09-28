@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Sebastián Urrego García
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
