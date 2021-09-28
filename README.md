@@ -129,7 +129,11 @@ You can check out Composer here:
     ```sh
     php artisan db:seed
     ```
-10. Run the project
+10. Link storage
+    ```sh
+    php artisan storage:link
+    ```
+11. Run the project
     You can run the project by using your development environment or you may use the `serve` Artisan command:
     ```sh
     php artisan serve
@@ -145,20 +149,26 @@ For contributing, the project uses a strategy based on a [forking workflow.](htt
 Here you can check out a full list of steps for you to contribute to this project: [GitHub Forking Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
 
 Before opening any **Pull Request** you must use the projects linters to check and apply the project style guide.
-When you installed the dependencies with `composer install` both [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [TLINT](https://github.com/tighten/tlint) where installed in your `vendor` folder. You can run this linters by running: 
+When you installed the dependencies with `composer install` both [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [TLINT](https://github.com/tighten/tlint) where installed in your `vendor` folder. You can run this linters by running:
+
 ```sh
 vendor/squizlabs/php_codesniffer/bin/phpcs
 ```
+
 ```sh
 vendor/tightenco/tlint/bin/tlint
 ```
+
 or you can install them globally in your machine by running:
+
 ```sh
 composer global require "squizlabs/php_codesniffer=*"
 ```
+
 ```sh
 composer global require tightenco/tlint
 ```
+
 <!-- LICENSE -->
 
 ## License
@@ -169,30 +179,12 @@ GNU GENERAL PUBLIC LICENSE Version 3. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - jpgomezxt@gmail.com
-
 Project Link: [https://github.com/jpgomezt/MovieTown](https://github.com/jpgomezt/MovieTown)
 
 <!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
 
--   []()
--   []()
--   []()
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/jpgomezt/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/jpgomezt/MovieTown/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/jpgomezt/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/jpgomezt/MovieTown/network/members
-[stars-shield]: https://img.shields.io/github/stars/jpgomezt/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/jpgomezt/MovieTown/stargazers
-[issues-shield]: https://img.shields.io/github/issues/jpgomezt/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/jpgomezt/MovieTown/issues
-[license-shield]: https://img.shields.io/github/license/jpgomezt/repo.svg?style=for-the-badge
-[license-url]: https://github.com/jpgomezt/MovieTown/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/jpgomezt
+-   [ Juan Pablo Gómez ](https://github.com/jpgomezt)
+-   [ Santiago Alzate ](https://github.com/Snatiolam)
+-   [ Sebastian Urrego ](https://github.com/urregozw)
