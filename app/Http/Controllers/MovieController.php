@@ -10,6 +10,32 @@ use Illuminate\Support\Facades\Auth;
 class MovieController extends Controller
 {
 
+    public static function findRelated(Request $request)
+    {
+        $data = [];
+        $data["title"] = "Filtered Movies";
+
+        $visitedMovies = $request->session()->get("visited_movies");
+        if ($visitedMovies) {
+            $movies = Movie::find(array_values($visitedMovies));
+            $priceMean = 0;
+            $criticsScoreMean = 0;
+            foreach ($movies as $movie) {
+                $priceMean += $movie->getPrice();
+                $criticsScoreMean += $movie->getCriticsScore();
+            }
+            $priceMean /= $movies->count();
+            $criticsScoreMean /= $movies->count();
+
+            $recommendedMovies = Movie::where('critics_score', '>=', $criticsScoreMean)
+                ->where('price', '<=', $priceMean)
+                ->take(5)
+                ->get();
+
+            return ($recommendedMovies);
+        }
+    }
+
     public function create()
     {
         if (Auth::check()) {
@@ -42,10 +68,16 @@ class MovieController extends Controller
         return back();
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $data = [];
-        $data["movie"] = Movie::with('reviews.user')->find($id);
+        $movie = Movie::with('reviews.user')->find($id);
+
+        $visitedMovies = $request->session()->get("visited_movies");
+        $visitedMovies[$movie->getId()] = $movie->getId();
+        $request->session()->put('visited_movies', $visitedMovies);
+
+        $data["movie"] = $movie;
         if (Auth::check()) {
             $user = Auth::user();
             $data["watchlists"] = $user->watchlists;
