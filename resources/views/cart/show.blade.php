@@ -41,7 +41,7 @@
                     @endforeach
                     <p class="card-text">Subtotal: {{ $data['subtotal'] }}$</p>
                     <p class="card-text">ShippingCost: 5.30$</p>
-                    <p class="card-text">Total: {{ $data['subtotal'] + 5.30 }}$</p>
+                    <p class="card-text">Total: {{ $data['subtotal'] + 5.3 }}$</p>
                     <a class="btn btn-danger mt-2" href="{{ route('cart.empty') }}">Empty cart</a>
                     <div class="col-md-8 mt-2 pl-0">
                         <div class="card">
@@ -63,8 +63,13 @@
                                             value="{{ old('address') }}" />
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input class="form-control" type="text" placeholder="Enter payment type"
-                                            name="payment_type" value="{{ old('payment_type') }}" />
+                                        <label for="paymentForm">Payment type:</label>
+                                        <select class="form-control" name="payment_type" id="paymentForm">
+                                            <option>Debit</option>
+                                            <option>Credit</option>
+                                            <option>PSE</option>
+                                            <option>Bitcoin</option>
+                                        </select>
                                     </div>
                                     <input class="btn btn-success mt-2" type="submit" value="Checkout">
                                 </form>
