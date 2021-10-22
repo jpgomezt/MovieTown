@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class HomeController extends Controller
             }
         }
         $data = [];
-        $recommended = MovieController::findRelated($request);
+        $recommended = Movie::findRelated($request);
         $data["recommended_movies"] = $recommended;
         return view('home.index', ['data' => $data]);
     }

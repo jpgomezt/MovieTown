@@ -31,6 +31,32 @@ class Movie extends Model
         ]);
     }
 
+    public static function findRelated(Request $request)
+    {
+        $data = [];
+        $data["title"] = "Filtered Movies";
+
+        $visitedMovies = $request->session()->get("visited_movies");
+        if ($visitedMovies) {
+            $movies = Movie::find(array_values($visitedMovies));
+            $priceMean = 0;
+            $criticsScoreMean = 0;
+            foreach ($movies as $movie) {
+                $priceMean += $movie->getPrice();
+                $criticsScoreMean += $movie->getCriticsScore();
+            }
+            $priceMean /= $movies->count();
+            $criticsScoreMean /= $movies->count();
+
+            $recommendedMovies = Movie::where('critics_score', '>=', $criticsScoreMean)
+                ->where('price', '<=', $priceMean)
+                ->take(5)
+                ->get();
+
+            return ($recommendedMovies);
+        }
+    }
+
     public function getId()
     {
         return $this->attributes['id'];
