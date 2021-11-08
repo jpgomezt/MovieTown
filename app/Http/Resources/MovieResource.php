@@ -15,7 +15,7 @@ class MovieResource extends JsonResource
             'price' => $this->getPrice(),
             'rent_quantity' => $this->getRentQuantity(),
             'sell_quantity' => $this->getSellQuantity(),
-            'image' => storage_path() . '/' . $this->getId() . '.png',
+            'image' => 'movietown-eafit.tk/storage/' . $this->getId() . '.png',
         ];
     }
 }
