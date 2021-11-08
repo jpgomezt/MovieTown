@@ -26,7 +26,7 @@ class HomeController extends Controller
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
                 $data = [];
-                $recommended = MovieController::findRelated($request);
+                $recommended = Movie::findRelated($request);
                 $data["recommended_movies"] = $recommended;
                 return view('home.index', ['data' => $data]);
             }
