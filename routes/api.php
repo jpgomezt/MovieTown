@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('movie', 'App\Http\Controllers\Api\MovieApi@index')->name("api.movie.index");
+
+Route::get('movie/{id}', 'App\Http\Controllers\Api\MovieApi@show')->name("api.movie.show");
