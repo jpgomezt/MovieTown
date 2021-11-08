@@ -36,3 +36,5 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .vscode/
+
+.DS_Store
