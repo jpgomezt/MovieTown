@@ -14,6 +14,7 @@ return [
     */
 
     'header' => 'Cart',
+    'page_title' => 'Your Cart',
     'empty' => 'You currently do not have any products - Go on and add them !',
     'renting' => 'Renting',
     'buying' => 'Buying',

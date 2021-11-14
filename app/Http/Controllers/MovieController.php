@@ -22,7 +22,6 @@ class MovieController extends Controller
         if (Auth::check()) {
             if (Auth::user()->getIsStaff()) {
                 $data = [];
-                $data["title"] = "Create Movie";
                 return view('admin.movie.create', ['data' => $data]);
             }
         }
@@ -75,7 +74,6 @@ class MovieController extends Controller
             if (Auth::user()->getIsStaff()) {
                 $movie = Movie::find($id);
                 $data = [];
-                $data["title"] = "Update Movie";
                 $data["movie"] = $movie;
                 return view('admin.movie.update', ['data' => $data]);
             }
@@ -107,7 +105,6 @@ class MovieController extends Controller
     public function list()
     {
         $data = [];
-        $data["title"] = "List of movies";
         $data["movies"] = Movie::all()->sortBy('id');
         if (Auth::check()) {
             $user = Auth::user();
@@ -133,7 +130,6 @@ class MovieController extends Controller
         }
 
         $data = [];
-        $data["title"] = "Filtered Movies";
         $rentQuantityOperator = '>=';
         if ($request->input('rent') == 'on') {
             $rentQuantityOperator = '>';

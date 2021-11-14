@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $data['title'])
+@section('title', __('movie.create_movie'))
 
 @section('content')
     <div class="container">

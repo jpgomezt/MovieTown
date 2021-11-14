@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $data['title'])
+@section('title', __('movie.list_title'))
 
 @section('content')
     <div class="container mt-4 mb-4">
