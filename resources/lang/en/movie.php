@@ -14,6 +14,7 @@ return [
     */
     'available_movies' => 'Available Movies',
 
+    'filters_title' => 'Filtered Movies',
     'filters' => 'Filters',
     'title_filter' => 'Enter title',
     'filter' => 'Filter',
@@ -37,7 +38,7 @@ return [
     'add_to_watchlist' => 'Add To Watchlist',
     'create_review' => 'Create Review',
     'review_button' => 'Create',
-    
+
     'create_movie' => 'Create Movie',
     'enter_title' => 'Enter title',
     'enter_plot' => 'Enter plot',
@@ -49,5 +50,7 @@ return [
     'create' => 'Create',
     'update_movie' => 'Update Movie',
     'update' => 'Update',
+
+    'list_title' => 'List of movies',
 
 ];
