@@ -84,3 +84,6 @@ Route::post('admin/order/delete/{id}', [App\Http\Controllers\OrderController::cl
 Route::get('admin/order/list', [App\Http\Controllers\OrderController::class, 'list'])->name('admin.order.list');
 
 Route::get('admin/item/list/{id}', [App\Http\Controllers\ItemController::class, 'list'])->name('admin.item.list');
+
+// Consuming APIs
+Route::get('consumeApi', [App\Http\Controllers\ThisController::class, 'apiNoKey'])->name('consume.api');
