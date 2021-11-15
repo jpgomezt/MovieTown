@@ -58,7 +58,6 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             $data = [];
-            $data["title"] = "Your Cart";
 
             $products = $request->session()->get("products");
             if ($products) {
