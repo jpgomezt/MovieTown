@@ -14,7 +14,7 @@ RUN composer install \
     --prefer-dist
 
 RUN php artisan key:generate
-RUN php artisan migrate
+RUN php artisan migrate:fresh
 RUN php artisan db:seed
 RUN php artisan storage:link
 RUN chmod -R 777 storage
