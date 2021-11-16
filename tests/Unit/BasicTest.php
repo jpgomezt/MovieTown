@@ -13,13 +13,13 @@ class BasicTest extends TestCase
      *
      * @return void
      */
-    public function test_main_page_response()
+    public function testMainPageResponse()
     {
         $this->get('/')->assertStatus(200);
         //$this->assertTrue(true);
     }
 
-    public function test_the_password_is_required()
+    public function testThePasswordIsRequired()
     {
         $this->get('/')->assertStatus(200);
         $user = User::where('email', 'zaratedev@gmail.com');
@@ -44,5 +44,4 @@ class BasicTest extends TestCase
                 'password' => 'The password field is required.',
             ]);
     }
-
 }
