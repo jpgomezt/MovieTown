@@ -3,13 +3,8 @@
 namespace Tests\Unit;
 
 //use PHPUnit\Framework\TestCase;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\User;
-
-
+use Tests\TestCase;
 
 class BasicTest extends TestCase
 {
@@ -27,11 +22,11 @@ class BasicTest extends TestCase
     public function test_the_password_is_required()
     {
         $this->get('/')->assertStatus(200);
-        $user = User::where('email', 'zaratedev@gmail.com' );
-        if ($user !== null){
+        $user = User::where('email', 'zaratedev@gmail.com');
+        if ($user !== null) {
             $user->delete();
-
         }
+        
         $user = User::create(['email' => 'zaratedev@gmail.com',
                               'name' => 'zara',
                               'password' => 'zara',
@@ -40,7 +35,7 @@ class BasicTest extends TestCase
         ]);
         $credentials = [
             "email" => "zaratedev@gmail.com",
-            "password" => null
+            "password" => null,
         ];
 
         $response = $this->from('/login')->post('/login', $credentials);
@@ -62,5 +57,4 @@ class BasicTest extends TestCase
     //    //$this->visit('/')
     //    //     ->see('MOVIETOWN');
     //}
-
 }

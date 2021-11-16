@@ -26,7 +26,7 @@ class ThisController extends Controller
     {
         $client = new Client();
         //$url = "https://api.github.com/users/kingsconsult/repos";
-        $url = "http://movietown-eafit.tk/api/movie";
+        $url = "http://techsavies.tk/public/api/products";
 
         $response = $client->request('GET', $url, [
             'verify'  => false,
@@ -35,7 +35,7 @@ class ThisController extends Controller
         $responseBody = json_decode($response->getBody());
 
         $data['api'] = $responseBody->data;
-        //return dd($responseBody);
+        #return dd($responseBody->data);
         #return $responseBody;
         return view('api.apiNoKey', ['data' => $data]);
         //return view('projects.apiwithoutkey', compact('responseBody'));
