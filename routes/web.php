@@ -87,3 +87,5 @@ Route::get('admin/item/list/{id}', [App\Http\Controllers\ItemController::class, 
 
 // Consuming APIs
 Route::get('consumeApi', [App\Http\Controllers\ThisController::class, 'apiNoKey'])->name('consume.api');
+
+Route::get('locale/{locale}', [App\Http\Controllers\LanguageController::class, 'switchLang'])->name('locale.switch');

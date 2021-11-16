@@ -107,6 +107,16 @@
                             </form>
                         @endif
                     @endguest
+                    <!--Language-->
+                    @foreach (config('app.available_locales') as $locale_name => $available_locale)
+                        @if ($available_locale === App::getLocale())
+                        @else
+                            <li class="nav-item mx-0 mx-lg-1"><a
+                                    class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                    href="{{ route('locale.switch', ['locale' => $available_locale]) }}">
+                                    <i class="fas fa-language"></i></a></li>
+                        @endif
+                    @endforeach
                 </ul>
             </div>
         </div>
