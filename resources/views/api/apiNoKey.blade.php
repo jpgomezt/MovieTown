@@ -2,16 +2,16 @@
 @section('content')
     <section class="page-section cartparts" id="cartparts-list">
         <div class="justify-content-cente container mt-5">
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Products</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"> {{ __('api.title') }} </h2>
             <table border=\"0\">
                 <thead>
                     <tr>
-                        <th> Name</th>
-                        <th> Model</th>
-                        <th> Category</th>
-                        <th> Brand</th>
-                        <th> Stock</th>
-                        <th> Price</th>
+                        <th> {{ __('api.item_name') }}</th>
+                        <th> {{ __('api.item_model') }}</th>
+                        <th> {{ __('api.item_category') }}</th>
+                        <th> {{ __('api.item_brand') }}</th>
+                        <th> {{ __('api.item_stock') }}</th>
+                        <th> {{ __('api.item_price') }}</th>
                     </tr>
                 </thead>
                 <tbody>
