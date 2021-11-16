@@ -45,16 +45,4 @@ class BasicTest extends TestCase
             ]);
     }
 
-    //public function test_interaction_with_headers()
-    //{
-    //    //$response = $this->withHeaders([
-    //    //    '1-Heer' => 'Vdslue',
-    //    //])->get('/');
-    //    //$response->assertStatus(200);
-    //    $this->get('/movie/list')
-    //        ->see('MOVIETOWN')
-    //        ->assertRedirect(route('home.index'));
-    //    //$this->visit('/')
-    //    //     ->see('MOVIETOWN');
-    //}
 }
