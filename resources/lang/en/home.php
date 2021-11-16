@@ -22,4 +22,7 @@ return [
 
     'about_title' => 'About',
     'about_content' => 'You can find movies to buy and rent, in addition to creating watchlists and reviews of those movies',
+    'curious' => 'If you are curious, here is the position of the International Space Station',
+    'latitude' => 'Latitude: ',
+    'longitude' => 'Longitude: ',
 ];
