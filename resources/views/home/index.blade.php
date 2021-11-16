@@ -13,7 +13,11 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-light mb-0">{{ __('home.heading_subtitle') }}</p>
+            <p class="masthead-subheading font-weight-light mb-0">{{ __('home.heading_subtitle') }}
+                <br> {{ __('home.curious') }}
+                <br> {{ __('home.latitude') }}  {{ $data['iss_loc']['latitude'] }}
+                <br> {{ __('home.longitude') }} {{ $data['iss_loc']['longitude'] }}
+            </p>
         </div>
     </header>
     <!-- Recommended Movies Section-->
