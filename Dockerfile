@@ -6,7 +6,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . /var/www/html
 COPY ./public/.htaccess /var/www/html/.htaccess
 WORKDIR /var/www/html
-COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY vhost.conf /etc/apache2/sites-available/000-default.conf
 RUN composer install \
     --ignore-platform-reqs \
     --no-interaction \
